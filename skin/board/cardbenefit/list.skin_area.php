@@ -34,6 +34,11 @@ if($word && $word1 && !$stx){ // 지역 + 시.군.구 입력했을경우
 ?>
 
 
+
+
+
+
+
 <link rel="stylesheet" href="<?=$board_skin_url?>/sub3_3.css" type="text/css" />
 <link href='/css/prettydropdowns.css' type='text/css' rel='stylesheet' >
 

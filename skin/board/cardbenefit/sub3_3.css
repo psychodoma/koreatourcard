@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/*list.skin_area.php-¸µÅ©*/
+/*list.skin_area.php-ï¿½ï¿½Å©*/
 
 
 .sub_titleHead {padding-bottom: 30px}
@@ -23,7 +23,7 @@ div#select_box1 {float: left;}
 .sub3_1List li .grid .effect-bubba {border: 1px solid #b0b0b0;}
 
 .suburb {font-size: 13px; font-weight: 700; padding: 5px 0; border-bottom: 1px solid #b0b0b0; width: 185px; margin: 0 auto;}
-.suburb>img {width: 23px; margin-right: 10px;}  
+.suburb>img {width: 23px; margin-right: 10px;}
 
 .list_top_cnt {
 		background: url('/img/ktc_map_icon_000.png') no-repeat top left;
@@ -57,10 +57,7 @@ div#select_box1 {float: left;}
 /* .sub_leftNavi_list li .hover {color: #000; font-weight: 700;} */
 
 
-/* 
+/*
 .select_word1 li{
 	width: 190px;
 } */
-
-
-
