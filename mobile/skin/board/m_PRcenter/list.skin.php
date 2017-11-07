@@ -16,10 +16,17 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         <h4><?=$board['bo_mobile_subject_'.$_SESSION['lang']]?></h4>
     </div>
 
-
+    <?php
+      if($_SESSION['lang'] == "ko_KR"){$thumb_num = 0;}
+      else if($_SESSION['lang'] == "en_US"){$thumb_num = 1;}
+      else if($_SESSION['lang'] == "ja_JP"){$thumb_num = 2;}
+      else if($_SESSION['lang'] == "zh_CN"){$thumb_num = 3;}
+      else if($_SESSION['lang'] == "zh_TW"){$thumb_num = 4;}
+      else{$thumb_num = 1;}
+    ?>
 
     <div class="sub13_board">
-        
+
         <?php
         for ($i=0; $i<count($list); $i++) {
 
@@ -28,8 +35,18 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         // $img = substr($match['url'],1);
 
         $thumb1 = get_list_thumbnail(strtolower($board['bo_table']), $list[$i]['wr_id'], 100,100);
+		    $thumb = get_list_thumbnail(strtolower($board['bo_table']), $list[$i]['wr_id'], $thumb1['width'],$thumb1['height'],true, false, 'left', false,'80/0.5/3',$thumb_num);
 
-		$thumb = get_list_thumbnail(strtolower($board['bo_table']), $list[$i]['wr_id'], $thumb1['width'],$thumb1['height']);
+        if( !$thumb['src'] ){
+            $thumb = get_list_thumbnail_ktc(strtolower($board['bo_table']), $list[$i]['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height'],true, false, 'left', false,'80/0.5/3',1);
+        }
+
+        if( !$thumb['src'] ){
+            $thumb = get_list_thumbnail_ktc(strtolower($board['bo_table']), $list[$i]['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height'],true, false, 'left', false,'80/0.5/3',0);
+        }
+
+
+
 		//본문내용 텍스트만 가져오기
 		$str_content = cut_str(strip_tags($list[$i]['wr_content_'.$_SESSION['lang']]),$board['bo_mobile_subject_len']);
 
@@ -72,7 +89,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         </div>
 
         <?}?>
-        
+
     </div>
 
 
@@ -104,7 +121,7 @@ $(function(){
                 var page_row = parseInt($('.remember_page').attr('valRow'));
                 $('.sub13_board').append(data);
                 $('.remember_page').attr('valPage',page_num);
-                
+
             }
         })
     })

@@ -85,13 +85,28 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
             <input type="hidden" name="info" value="<?php echo $info ?>">
             <input type="hidden" name="sw" value="">
 
-
+            <?php
+              if($_SESSION['lang'] == "ko_KR"){$thumb_num = 0;}
+              else if($_SESSION['lang'] == "en_US"){$thumb_num = 1;}
+              else if($_SESSION['lang'] == "ja_JP"){$thumb_num = 2;}
+              else if($_SESSION['lang'] == "zh_CN"){$thumb_num = 3;}
+              else if($_SESSION['lang'] == "zh_TW"){$thumb_num = 4;}
+              else{$thumb_num = 1;}
+            ?>
 
             <?if( count($list) != 0 ){?>
                 <?php
                 for($i=0; $i<count($list); $i++){
                     //썸네일 이미지 가져오기
-                    $thumb = get_list_thumbnail(strtolower($board['bo_table']), $list[$i]['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height']);
+                    $thumb = get_list_thumbnail_ktc(strtolower($board['bo_table']), $list[$i]['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height'],true, false, 'left', false,'80/0.5/3',$thumb_num);
+
+                    if( !$thumb['src'] ){
+                        $thumb = get_list_thumbnail_ktc(strtolower($board['bo_table']), $list[$i]['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height'],true, false, 'left', false,'80/0.5/3',1);
+                    }
+
+                    if( !$thumb['src'] ){
+                        $thumb = get_list_thumbnail_ktc(strtolower($board['bo_table']), $list[$i]['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height'],true, false, 'left', false,'80/0.5/3',0);
+                    }
                     //본문내용 텍스트만 가져오기
 
 					if($_SESSION['lang'] != "en_US"){

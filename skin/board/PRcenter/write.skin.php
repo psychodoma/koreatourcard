@@ -193,19 +193,19 @@ echo $action_url;
                         <div><button type="button" class="autosave_close"><img src="<?php echo $board_skin_url; ?>/img/btn_close.gif" alt="닫기"></button></div>
                     </div>
                     <?php } ?>-->
-                </div>      
+                </div>
 
 
 
             </td>
 
-            
+
         </tr>
 
         <tr>
             <th scope="row"><label for="wr_content">내용<strong class="sound_only">필수</strong></label></th>
             <td class="wr_content">
-                
+
                 <?php if($write_min || $write_max) { ?>
                 <!-- 최소/최대 글자 수 사용 시 -->
                 <p id="char_count_desc">이 게시판은 최소 <strong><?php echo $write_min; ?></strong>글자 이상, 최대 <strong><?php echo $write_max; ?></strong>글자 이하까지 글을 쓰실 수 있습니다.</p>
@@ -262,7 +262,7 @@ echo $action_url;
                 <?php if($write_min || $write_max) { ?>
                 <!-- 최소/최대 글자 수 사용 시 -->
                 <div id="char_count_wrap"><span id="char_count"></span>글자</div>
-                <?php } ?>               
+                <?php } ?>
 
 
             </td>
@@ -285,10 +285,10 @@ echo $action_url;
             <td><input type="text" name="wr_link<?php echo $i ?>" value="<?php if($w=="u"){echo$write['wr_link'.$i];} ?>" id="wr_link<?php echo $i ?>" class="frm_input" size="50"></td>
         </tr>
         <?php } ?>-->
-
+        <?php $lang_array = array('한','영','일','간','번');?>
         <?php for ($i=0; $is_file && $i<$file_count; $i++) { ?>
         <tr>
-            <th scope="row">리스트 이미지</th>
+            <th scope="row">리스트 이미지 ( <?php echo $lang_array[$i];?> )</th>
             <td>
                 <div style='color:red; width:100%; height:30px; padding-top:5px;'>이미지크기 230px * 148px / JPG, PNG 파일을 올려주세요.</div>
                 <input type="file" name="bf_file[]" title="파일첨부 <?php echo $i+1 ?> : 용량 <?php echo $upload_max_filesize ?> 이하만 업로드 가능" class="frm_file frm_input">

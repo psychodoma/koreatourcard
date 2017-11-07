@@ -98,7 +98,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
 					$thumb = get_list_thumbnail_ktc($board['bo_table'], $list[$i]['wr_id'], '200', '',true, false, 'left', false,'80/0.5/3',1);
 					$thumb1 = get_list_thumbnail_ktc($board['bo_table'], $list[$i]['wr_id'], '200', '',false, true, 'center', true,'80/0.5/3',2);
 					?>
-					
+
                     <li <?if($i%4 == 3) echo "class='li_margin_r'";?> >
 						<div class="grid">
 							<div class="effect-bubba">
@@ -121,19 +121,19 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
                                 <?}?>
 
 
-								
+
 								<p class="title">
-                                    
+
                                     <?if( $stx ){?>
                                         <?if( $list[$i]['wr_title_'.$_SESSION['lang']] == ''){?>
-                                            <?=$list[$i]['wr_subject_'.$_SESSION['lang']]?>   
+                                            <?=$list[$i]['wr_subject_'.$_SESSION['lang']]?>
                                         <?}else{?>
-                                            <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>   
+                                            <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>
                                         <?}?>
                                     <?}else{?>
-                                        <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>   
+                                        <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>
                                     <?}?>
-                                
+
                                 </p>
 									<a href="<?php echo $list[$i]['href']."&info=".$info."&me_code=".$me_code."&num=".$num.lang_url_a($_SESSION['lang']); ?>" >
                                     <?if($thumb1['src']){?>
@@ -146,19 +146,19 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
 
                                         <?if( $stx ){?>
                                             <?if( $list[$i]['wr_title_'.$_SESSION['lang']] == ''){?>
-                                                <?=$list[$i]['wr_subject_'.$_SESSION['lang']]?>   
+                                                <?=$list[$i]['wr_subject_'.$_SESSION['lang']]?>
                                             <?}else{?>
-                                                <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>   
+                                                <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>
                                             <?}?>
                                         <?}else{?>
-                                            <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>   
-                                        <?}?>          
-                                    
+                                            <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>
+                                        <?}?>
+
                                         <br/><?=_t('자세히보기')?></p>
-										
+
 									</div>
 								</a>
-								
+
 
                                     <?if($thumb1['src']){?>
                                         <div valid='<?php echo $thumb1['src']?>' class="figcap bg<?=$i?>">
@@ -167,15 +167,15 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
                                     <?}?>
 										<h2><img src="/img/sub/sub3/sub3_1/sub3_1more.png" /></h2>
 										<p class="hover_more">
-                                        
+
                                             <?if( $stx ){?>
                                                 <?if( $list[$i]['wr_title_'.$_SESSION['lang']] == ''){?>
-                                                    <?=$list[$i]['wr_subject_'.$_SESSION['lang']]?>   
+                                                    <?=$list[$i]['wr_subject_'.$_SESSION['lang']]?>
                                                 <?}else{?>
-                                                    <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>   
+                                                    <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>
                                                 <?}?>
                                             <?}else{?>
-                                                <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>   
+                                                <?=$list[$i]['wr_title_'.$_SESSION['lang']]?>
                                             <?}?>
 
                                         <br/><?=_t('자세히보기')?></p>
@@ -193,12 +193,12 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
 
 			</ul>
 
-            <?php 
+            <?php
             $write_pages = get_paging_ktc($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=","&me_code=".$me_code."&info=".$info."&num=".$num.lang_url_a($_SESSION['lang']));
-            echo $write_pages; 
+            echo $write_pages;
             ?>
 		</div>
-    
+
 
 
 
@@ -292,7 +292,7 @@ function select_copy(sw) {
 <!-- } 게시판 목록 끝 -->
 
 
-<?php  
+<?php
     if(!($sca)){
        // echo "<script>alert('1');</script>";
         echo "<script>$('.benefitall').addClass('s32_act');</script>";

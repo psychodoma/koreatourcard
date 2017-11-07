@@ -240,14 +240,14 @@ if($w == 'u'){
                 <!--<input type="text" name='wr_address_ja_JP' placeholder="일본주소" style='margin-bottom:10px;' size='75' >
                 <input type="text" name='wr_address_zh_CN' placeholder="간체주소" size='75'><br>
                 <input type="text" name='wr_address_en_US' placeholder="번체주소" size='75'><br><br><br>-->
-                
-                좌표 : 
+
+                좌표 :
                 <input type="text" id='wr_lat' name='wr_lat' placeholder="lat" value='<?=$write['wr_lat']?>' size='30'>
                 <input type="text" id='wr_lng' name='wr_lng' placeholder="lng" value='<?=$write['wr_lng']?>' size='30'>
 
                 <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
                 <img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
-                </div>  
+                </div>
                 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
             </td>
@@ -255,7 +255,7 @@ if($w == 'u'){
 
 
         <tr>
-            <th scope="row"><label for="wr_link<?php echo $i ?>">이용정보</label></th>
+            <th scope="row"><label for="wr_link<?php echo $i ?>">지하철</label></th>
             <td class="courseWrrite_input">
                 <input type="text" name='wr_1'  id="sample2_address" value='<?=$write['wr_1']?>' placeholder="한글주소" style='margin-bottom:15px;' size='60'>
                 <input type="text" name='wr_2' value='<?=$write['wr_2']?>'  id="" placeholder="한글상세주소" style='margin-bottom:15px;' size='60'><br>
@@ -335,7 +335,7 @@ if($w == 'u'){
                     <div id="char_count_wrap"><span id="char_count"></span>글자</div>
                     <?php } ?>
                 </div>
-                
+
                 <br><br><br><br>
                 <div style='color:red; width:100%; height:30px; padding-top:5px;'>지하철역 예시 ) 충무로역(3,4호선)</div>
 
@@ -375,7 +375,7 @@ if($w == 'u'){
 
 
                 <tr>
-                    <th scope="row"><label for="wr_link1">지하철</label></th>
+                    <th scope="row"><label for="wr_link1">교통</label></th>
                     <td>
 						 <?php echo $subway_editor_ko_KR_html;?>
 						 <?php echo $subway_editor_en_US_html;?>
@@ -441,7 +441,7 @@ if($w == 'u'){
 
 
 
- 
+
                 <tr>
                     <th scope="row"><label for="wr_link1">홈페이지 한</label></th>
                     <td><input type="text" name="wr_link1" value="<?php if($w=="u"){echo $write['wr_link1'];} ?>" id="wr_link1" class="frm_input" size="70"></td>
@@ -676,7 +676,7 @@ if($w == 'u'){
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample2_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                
+
                 document.getElementById('sample2_address').value = fullAddr;
                 document.getElementById('sample2_addressEnglish').value = data.addressEnglish;
 
@@ -697,13 +697,13 @@ if($w == 'u'){
                         alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                     }
 
-    
+
                 })
 
 
 
 
-                
+
 
                 // iframe을 넣은 element를 안보이게 한다.
                 // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)

@@ -26,9 +26,16 @@ include_once(G5_LIB_PATH.'/thumbnail.lib.php');
 			$result_add = sql_query(" select * from g5_write_".$bo_table." where wr_1 = 'on' order by wr_num limit ".($page*$page_rows).", ".$page_rows);
 			$reuslt_cnt = sql_fetch("select count(*) cnt from ( select * from g5_write_".$bo_table." where wr_1 = 'on' order by wr_num limit ".($page*$page_rows).", ".$page_rows.") a" );
 			$reuslt_total = sql_fetch(" select count(*) cnt from g5_write_".$bo_table." where wr_1 = 'on' ");
-		}	
+		}
 
 
+      if($_SESSION['lang'] == "ko_KR"){$thumb_num = 0;}
+      else if($_SESSION['lang'] == "en_US"){$thumb_num = 1;}
+      else if($_SESSION['lang'] == "ja_JP"){$thumb_num = 2;}
+      else if($_SESSION['lang'] == "zh_CN"){$thumb_num = 3;}
+      else if($_SESSION['lang'] == "zh_TW"){$thumb_num = 4;}
+      else{$thumb_num = 1;}
+  
 
 
 while($row = sql_fetch_array($result_add) ){
@@ -36,10 +43,18 @@ while($row = sql_fetch_array($result_add) ){
     // $pattern = "/<img.*?src=[\"']?(?P<url>[^(http)].*?)[\"' >]/i";
     // preg_match($pattern,stripslashes(str_replace('&amp;','&',$row["wr_content"])), $match);
     // $img = substr($match['url'],1);
+		$thumb1 = get_list_thumbnail(strtolower($board['bo_table']), $list[$i]['wr_id'], 100,100);
+		$thumb = get_list_thumbnail(strtolower($board['bo_table']), $list[$i]['wr_id'], $thumb1['width'],$thumb1['height'],true, false, 'left', false,'80/0.5/3',$thumb_num);
 
-    $thumb1 = get_list_thumbnail($bo_table, $row['wr_id'], 100,100);
+		if( !$thumb['src'] ){
+				$thumb = get_list_thumbnail_ktc(strtolower($board['bo_table']), $list[$i]['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height'],true, false, 'left', false,'80/0.5/3',1);
+		}
 
-    $thumb = get_list_thumbnail($bo_table, $row['wr_id'], $thumb1['width'],$thumb1['height']);
+		if( !$thumb['src'] ){
+				$thumb = get_list_thumbnail_ktc(strtolower($board['bo_table']), $list[$i]['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height'],true, false, 'left', false,'80/0.5/3',0);
+		}
+
+
 
 
     //본문내용 텍스트만 가져오기
@@ -105,7 +120,7 @@ $(function(){
                 var page_row = parseInt($('.remember_page').attr('valRow'));
                 $('.sub13_board').append(data);
                 $('.remember_page').attr('valPage',page_num);
-                
+
             }
         })
     })
@@ -113,5 +128,3 @@ $(function(){
 </script>
 
 <?}?>
-
-

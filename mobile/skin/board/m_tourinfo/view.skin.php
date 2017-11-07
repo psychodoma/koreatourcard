@@ -14,7 +14,7 @@ if($course_sql_cnt['cnt'] != 0){
     $course_cnt = 100/($course_sql_cnt['cnt'])-1;
 }
 
-$url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]; 
+$url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 ?>
 <script src="/plugin/ask_banner/js/clipboard.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -32,24 +32,24 @@ $thumb1 = get_list_thumbnail($board['bo_table'], $view['wr_id'], 100,100);
 
 $thumb = get_list_thumbnail($board['bo_table'], $view['wr_id'], $thumb1['width'],$thumb1['height']);
 ?>
-<div class='lang' valLang='<?=$_SESSION['lang']?>'></div>   
+<div class='lang' valLang='<?=$_SESSION['lang']?>'></div>
 
         <div class="moble_wrap">
             <div class="sub_title2" >
                 <h2><?=$view['wr_subject_'.$_SESSION['lang']]?></h2>
             </div>
-			
+
 
 			<div class="sub4_1view">
 
                 <div class="sub4_1view_img">
-                
+
                     <?if( $thumb['src'] ){?>
                         <img src="<?php echo $thumb['src']?>" />
                     <?}else{?>
                         <img src="/img/default/ktc_cardbenefit_background.png" alt="<?=$list[$i]['wr_subject']?>"/>
                     <?}?>
-                
+
                 </div>
 
 
@@ -61,7 +61,7 @@ $thumb = get_list_thumbnail($board['bo_table'], $view['wr_id'], $thumb1['width']
 
                 <div class="sub4_1view_loca">
                     <ul>
-                        <?$cnt=1;while($row = sql_fetch_array($course_sql1) ){?> 
+                        <?$cnt=1;while($row = sql_fetch_array($course_sql1) ){?>
                             <li style='width: <?=$course_cnt?>%;'>
                                 <div style='display:none;' class='map_info' valInfoNameko='<?=$row['wr_subject_ko_KR']?>' valInfoNameen='<?=$row['wr_subject_en_US']?>' valInfoNameja='<?=$row['wr_subject_ja_JP']?>' valInfoNamech1='<?=$row['wr_subject_zh_CN']?>' valInfoNamech2='<?=$row['wr_subject_zh_TW']?>'   valId='<?=$row['wr_id']?>' valTable='<?=$bo_table?>'  valInfoName='<?=$row['wr_subject_'.$_SESSION['lang']]?>'  valInfoLat='<?=$row['wr_lat']?>' valInfoLng='<?=$row['wr_lng']?>'></div>
                                 <h3><?=$row['wr_subject_'.$_SESSION['lang']]?></h3>
@@ -82,7 +82,7 @@ $thumb = get_list_thumbnail($board['bo_table'], $view['wr_id'], $thumb1['width']
                     <?$cnt=0;while($row = sql_fetch_array($course_sql) ){
                         $sql_qu_re_cnt = sql_fetch( " select count(*)cnt from g5_board_file where bo_table ='course' and wr_id=".$row['wr_id'] );
                     ?>
-                        <div>  
+                        <div>
 
 
                             <?if(  $sql_qu_re_cnt['cnt'] != 1 ){?>
@@ -133,14 +133,14 @@ $thumb = get_list_thumbnail($board['bo_table'], $view['wr_id'], $thumb1['width']
 
                                     <?if($row['wr_metro_'.$_SESSION['lang']]){?>
                                         <li>
-                                            <h4><?=_t('교통')?></h4>
+                                            <h4><?=_t('지하철')?></h4>
                                             <p><?=$row['wr_metro_'.$_SESSION['lang']]?></p>
                                         </li>
                                     <?}?>
 
                                     <?if($row['wr_subway_'.$_SESSION['lang']]){?>
                                         <li>
-                                            <h4><?=_t('지하철')?></h4>
+                                            <h4><?=_t('교통')?></h4>
 											<div>
                                             <p class=""><?=$row['wr_subway_'.$_SESSION['lang']]?></p>
 											</div>
@@ -166,7 +166,7 @@ $thumb = get_list_thumbnail($board['bo_table'], $view['wr_id'], $thumb1['width']
 									<?for($i=0; $i<count($service_txt); $i++){?>
                                     <li style='margin-bottom:5px;'>
                                         <h4><?if($i==0){  echo _t('코리아투어카드 혜택'); }else{ echo "&nbsp;&nbsp;&nbsp;&nbsp;"; }?></h4>
-										
+
                                         <p>
                                             <?if($i==0){?>
                                                 <?=$service_txt[$i]?>
@@ -251,8 +251,8 @@ $thumb = get_list_thumbnail($board['bo_table'], $view['wr_id'], $thumb1['width']
 				</ul>-->
                 <script>
                     new Clipboard('.clipboard_btn');
-                </script> 
-                
+                </script>
+
                 <ul class="sub4_1snsBtn">
                     <?php
                     include_once(G5_SNS_PATH."/view.sns.skin.php");
@@ -429,6 +429,6 @@ function excute_good(href, $el, $tx)
 <?
 $map_lang = explode("_", $_SESSION['lang']);
 ?>
-    
+
 <script src="/skin/board/map/map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIX9g1T3yPSC5_ewJO25c7mCiRs0clTU8&language=<?=$map_lang[0]?>&region=<?=$map_lang[1]?>"></script>

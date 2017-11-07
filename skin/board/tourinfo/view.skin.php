@@ -65,7 +65,7 @@ $(document).ready(function(){
 
 
 
-        <div class='lang' valLang='<?=$_SESSION['lang']?>'></div>   
+        <div class='lang' valLang='<?=$_SESSION['lang']?>'></div>
 
 
 		<div class="sub4_1topTxt">
@@ -86,7 +86,7 @@ $(document).ready(function(){
 			<div class="tabDetails">
 				<div id="tab1">
 					<div class="sub4_1thum"> <!-- 슬라이드 썹메뉴 -->
-							
+
 <!-- 						<div class="sub41thumHold">
 							<div class="hold_color"></div>
 							<div class="hold_title">
@@ -106,13 +106,13 @@ $(document).ready(function(){
                                         <div class=' <?if($row[wr_id] == $wr_id) echo "sub4_thum_slideNavi"?> '>
 											<p><?=$row['wr_subject_'.$_SESSION['lang']]?></p>
 										</div>
-                                        
+
                                         <?if($thumb['src']){?>
                                             <img src="<?php echo $thumb['src']?>" class="imgsell" alt=""/>
                                         <?}else{?>
                                             <img src="/img/default/ktc_tourinfo_list.png" class="imgsell" alt="" style=''/>
                                         <?}?>
-                                        
+
                                     </a>
                                 </div>
                             <?$cnt++;}?>
@@ -120,17 +120,17 @@ $(document).ready(function(){
                             <?if( $mainlist_sql_cnt['cnt'] < 6 ){?>
 
                                 <?$cnt=0;for( $i = 0; $i< $mainlist_sql_cnt1; $i++){
-                                   
+
                                 ?>
                                     <div class="" style='background-color:#fff;'>
                                         <a>
                                             <div class='' style='background:none;'>
                                                 <p></p>
                                             </div>
-                                            
+
                                             <img src="/img/default/ktc_tourinfo_list1.png" class="imgsell" alt="" style='opacity:0; width:179px; height:163px;'/>
 
-                                            
+
                                         </a>
                                     </div>
                                 <?$cnt++;}?>
@@ -170,7 +170,7 @@ $(document).ready(function(){
 
 						<div class="sub4_1info_top_course">
 							<ul>
-                                <?$cnt=1;while($row = sql_fetch_array($course_sql1) ){?> 
+                                <?$cnt=1;while($row = sql_fetch_array($course_sql1) ){?>
                                     <div style='display:none;' class='map_info' valInfoNameko='<?=$row['wr_subject_ko_KR']?>' valInfoNameen='<?=$row['wr_subject_en_US']?>' valInfoNameja='<?=$row['wr_subject_ja_JP']?>' valInfoNamech1='<?=$row['wr_subject_zh_CN']?>' valInfoNamech2='<?=$row['wr_subject_zh_TW']?>'   valId='<?=$row['wr_id']?>' valTable='<?=$bo_table?>'  valInfoName='<?=$row['wr_subject_'.$_SESSION['lang']]?>'  valInfoLat='<?=$row['wr_lat']?>' valInfoLng='<?=$row['wr_lng']?>'></div>
                                     <li style='width:<?=$course_cnt?>%;' >
                                         <h3><?=$row['wr_subject_'.$_SESSION['lang']]?></h3>
@@ -236,7 +236,7 @@ $(document).ready(function(){
 															<li>
 																<table>
 																	<tr>
-																		<td width="110px"><span><?=_t('교통')?></span></td>
+																		<td width="110px"><span><?=_t('지하철')?></span></td>
 																		<td width="360px"><p><?=$row['wr_metro_'.$_SESSION['lang']]?></p></td>
 																	</tr>
 																</table>
@@ -246,7 +246,7 @@ $(document).ready(function(){
 															<li>
 																<table>
 																	<tr>
-																		<td width="110px"><span><?=_t('지하철')?></span></td>
+																		<td width="110px"><span><?=_t('교통')?></span></td>
 																		<td width="360px"><p><?=$row['wr_subway_'.$_SESSION['lang']]?></p></td>
 																	</tr>
 																</table>
@@ -280,9 +280,9 @@ $(document).ready(function(){
                                                                                 <?}?>
                                                                             </p>
 																			<?}?>
-                                                                        </td>	
+                                                                        </td>
                                                                     </tr>
-                                                                </table>               
+                                                                </table>
                                                             </li>
                                                         <?}else{
                                                             $service_txt = get_view_thumbnail($row['wr_content_'.$_SESSION['lang']]);
@@ -303,9 +303,9 @@ $(document).ready(function(){
                                                                                 <?}?>
                                                                             </p>
 																			<?}?>
-                                                                        </td>	
+                                                                        </td>
                                                                     </tr>
-                                                                </table>            
+                                                                </table>
                                                             </li>
                                                         <?}?>
 
@@ -361,7 +361,7 @@ $(document).ready(function(){
                                                             </li>
                                                         <?}else?>
 
-														
+
 
                                                         <?if($row['wr_recom_ko_KR']){?>
                                                             <li>
@@ -396,7 +396,7 @@ $(document).ready(function(){
                                     <?if($cnt%2 == 1){?>
                                         </ul>
                                     <?}?>
-                                <?if($cnt%2 == 1){?>        
+                                <?if($cnt%2 == 1){?>
                                 </li>
                                 <?}?>
                             <?$cnt++;}?>
@@ -529,6 +529,6 @@ function excute_good(href, $el, $tx)
 <?
 $map_lang = explode("_", $_SESSION['lang']);
 ?>
-    
+
 <script src="/skin/board/map/map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIX9g1T3yPSC5_ewJO25c7mCiRs0clTU8&language=<?=$map_lang[0]?>&region=<?=$map_lang[1]?>"></script>
