@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(koreatourcard\.com|www\.koreatourcard\.com)
+RewriteRule ^ http://www.koreatourcard\.kr%{REQUEST_URI} [R=301,L]
+
+
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
+RewriteRule ^ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+
+

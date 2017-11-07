@@ -1,0 +1,154 @@
+■ <b>굿빌더 6.4.1의 주요 특징</b>
+<br/>
+<br/>
+⊙ <b>게시판 5.2.4 </b>
+<br/>
+⊙ <b>쇼핑몰 5.2.4 </b>
+<br/>
+⊙ <b>컨텐츠몰 1.0.b5</b> (빌더 자체 업그레이드 본)
+<br/>
+⊙ <b>부트스트랩 3.4.1</b>
+<br/>
+⊙ <b>기본 패키지에 g4 지원 모듈 포함</b>
+<br/>
+ &nbsp; - g4 팩 없이도 기존 그누보드4 레이아웃 및 스킨 변환 사용 가능
+<br/>
+ &nbsp; - g4 팩에는 G4 템플릿과 스킨만 포함
+<br/>
+⊙ <b>템플릿의 단독 개발, 배포 지원</b>
+<br/>
+⊙ <b>관리자의 작업 템플릿 설정 지원</b>
+<br/>
+⊙ <b>PC, 모바일, 반응형, 테마 지원</b>
+<br/>
+⊙ <b>쇼핑몰 지원</b>
+<br/>
+⊙ <b>컨텐츠몰 지원</b>
+<br/>
+⊙ <b>쇼핑몰, 컨텐츠몰 해외 결제 연동 지원</b>
+<br/>
+ &nbsp; - 페이팔, 알리페이, Authorize.Net, 엑심베이(Eximbay) (연동 모듈은 유료)
+<br/>
+⊙ <b>글로벌 언어 지원</b> (현재, 23 개 언어)
+<br/>
+⊙ <b>다국어(multi language) 지원</b> (one source multi language)
+<br/>
+<br/>
+■ <b> 굿빌더 6.4.1의 주요 변경 내용</b> (굿빌더 6.4.0 기준)
+<br/>
+<br/>
+<b>[기본 빌더]</b> (또는 전체)
+<br/>
+<br/>
+⊙ JS, CSS 파일의 브라우저 캐시 관리 기능 추가
+<br/>
+- extend/version.extend.php 추가
+<br/>
+- 모든 템플릿의 head.sub.php에 캐시 버젼 파라미터 추가
+<br/>
+⊙ 업그레이드 과정에서 누락된 javascript 번역 기능 추가
+<br/>
+- js/autosave.js
+<br/>
+- js/certify.js
+<br/>
+- js/common.js
+<br/>
+- js/wrest.js
+<br/>
+- js/zip.js
+<br/>
+⊙ qa 페이지 제목 또는 글제목 누락된 번역 추가
+<br/>
+- lib/common.lib.php (qa_title 번역 추가)
+<br/>
+- bbs/qadownload.php (qa_subject 번역 추가)
+<br/>
+⊙ qa 스킨 페이지 제목 번역 처리 방식 통일
+<br/>
+- skin/qa/*/list.skin.php (qa_title 번역 불필요)
+<br/>
+- mobile/skin/qa/*/list.skin.php (qa_title 번역 불필요)
+<br/>
+- tmpl/*/skin/qa/*/list.skin.php (qa_title 번역 불필요)
+<br/>
+- tmpl/*/mobile/skin/qa/*/list.skin.php (qa_title 번역 불필요)
+<br/>
+- mobile/tmpl/*/mobile/skin/qa/*/list.skin.php (qa_title 번역 불필요)
+<br/>
+⊙ 템플릿 추가 (다음 버젼에서 공개 예정)
+<br/>
+- tmpl/theme_basicbts
+<br/>
+- tmpl/theme_companybts
+<br/>
+- tmpl/theme_portpolio
+<br/>
+- tmpl/cm-001-free
+<br/>
+- tmpl/freelancer
+<br/>
+⊙ 모든 템플릿의 페이지 하단 수정 (용어 변경: 개인정보 처리방침, 개인정보 보호책임자)
+<br/>
+- tmpl/*/tail.php
+<br/>
+- tmpl/*/mobile/tail.php
+<br/>
+- mobile/tmpl/*/tail.php
+<br/>
+⊙ 템플릿 하단의 주소 정보 등의 표시 누락 보완
+<br/>
+- extend/templete.lang.extend.php
+<br/>
+⊙ 다국어 DB 보완 (미공개 부분)
+<br/>
+- 다국어 DB의 네팔어 등 일부 누락된 언어 번역 추가
+<br/>
+<br/>
+<b>[쇼핑몰]</b>
+<br/>
+<br/>
+⊙ 쿠폰존 기능 추가 (영카트 5.2.2 반영)
+<br/>
+- shop/couponzone.php 등 쿠폰존 기능 추가
+<br/>
+⊙ 모든 쇼핑몰 템플릿의 헤더 화일 수정 (쿠폰존 링크 추가)
+<br/>
+- tmpl/*shop*/head.sub.php
+<br/>
+- tmpl/*shop*/shop/shop.head.php
+<br/>
+- tmpl/*shop*/mobile/head.sub.php
+<br/>
+- tmpl/*shop*/mobile/shop/shop.head.php
+<br/>
+- mobile/tmpl/*shop*/head.sub.php
+<br/>
+- mobile/tmpl/*shop*/shop/shop.head.php
+<br/>
+⊙ 일부 미사용 쇼핑몰 스킨 제외
+<br/>
+- skin/shop/good_basic
+<br/>
+- skin/shop/r_good_basic_m
+<br/>
+⊙ 옴션 ID 필터링 상수 추가
+<br/>
+- extend/templete.theme.shop.extend.php
+<br/>
+⊙  KG이니시스 모바일 삼성페이 결제 추가 (영카트 5.2.4 반영)
+<br/>
+⊙  네이버쇼핑 EP 3.0 추가 (영카트 5.2.4 반영)
+<br/>
+<br/>
+<b>[빌더 관리]</b>
+<br/>
+<br/>
+⊙ 관리자 메뉴 추가 (미공개 부분 관련)
+<br/>
+- 다국어 게시판 관리 메뉴 추가 
+<br/>
+ &nbsp; (서브 메뉴: 다국어 게시판 제목 관리, 다국어 게시판 그룹 관리, 다국어 게시판 내용 관리)
+<br/>
+- 다국어 게시판 내용 관리 기능 추가 
+<br/>
