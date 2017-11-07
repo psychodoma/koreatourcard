@@ -1,0 +1,862 @@
+<?php
+
+$sub_menu = "001000";  
+
+if ($_GET['bo_table'] == 'cardbenefit') {
+    $sub_menu = "600100";           
+}
+if ($_GET['bo_table'] == 'tourinfo' || $_GET['bo_table'] == 'course' ) {
+    $sub_menu = "700100";           
+}
+if ( $_GET['bo_table'] == 'PRcenter'  ||  $_GET['bo_table'] == 'traffic' ||  $_GET['bo_table'] == 'festival' ||  $_GET['bo_table'] == 'event' ||  $_GET['bo_table'] == 'knotice') {
+    $sub_menu = "800100";           
+}
+if ($_GET['bo_table'] == 'map' || $_GET['bo_table'] == 'allshop') {
+    $sub_menu = "500100";           
+}
+
+
+include_once('./_common.php');  
+
+
+
+auth_check($auth[$sub_menu], 'r'); 
+
+
+
+$token = get_token();
+
+
+
+if ($is_admin != 'super')
+
+    alert('최고관리자만 접근 가능합니다.');   
+
+
+
+$g5['title'] = '';  
+
+include_once ('../admin.head.php');  
+
+
+
+
+
+include_once(G5_EDITOR_LIB);
+include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
+
+if (!$board['bo_table']) {
+    alert(_t('존재하지 않는 게시판입니다.'), G5_URL);
+}
+
+if (!$bo_table) {
+    alert(_t("bo_table 값이 넘어오지 않았습니다.")."\\nwrite.php?bo_table=code "._t("와 같은 방식으로 넘겨 주세요."), G5_URL);
+}
+
+check_device($board['bo_device']);
+
+$notice_array = explode(',', trim($board['bo_notice']));
+
+if (!($w == '' || $w == 'u' || $w == 'r')) {
+    alert('w '._t('값이 제대로 넘어오지 않았습니다.'));
+}
+
+if ($w == 'u' || $w == 'r') {
+    if ($write['wr_id']) {
+        // 가변 변수로 $wr_1 .. $wr_10 까지 만든다.
+        for ($i=1; $i<=10; $i++) {
+            $vvar = "wr_".$i;
+            $$vvar = $write['wr_'.$i];
+        }
+    } else {
+        alert(_t("글이 존재하지 않습니다.")."\\n"._t("삭제되었거나 이동된 경우입니다."), G5_URL);
+    }
+}
+
+if ($w == '') {
+    if ($wr_id) {
+        alert(_t('글쓰기에는 \$wr_id 값을 사용하지 않습니다.'), G5_BBS_URL.'/board.php?bo_table='.$bo_table);
+    }
+
+    if ($member['mb_level'] < $board['bo_write_level']) {
+        if ($member['mb_id']) {
+            alert(_t('글을 쓸 권한이 없습니다.'));
+        } else {
+            alert(_t("글을 쓸 권한이 없습니다.")."\\n"._t("회원이시라면 로그인 후 이용해 보십시오."), './login.php?'.$qstr.'&amp;url='.urlencode($_SERVER['SCRIPT_NAME'].'?bo_table='.$bo_table));
+        }
+    }
+
+    // 음수도 true 인것을 왜 이제야 알았을까?
+    if ($is_member) {
+        $tmp_point = ($member['mb_point'] > 0) ? $member['mb_point'] : 0;
+        if ($tmp_point + $board['bo_write_point'] < 0 && !$is_admin) {
+            alert(_t('보유하신 포인트가 없거나 모자라서 글쓰기가 불가합니다.').'\\n\\n'._t('포인트를 적립하신 후 다시 글쓰기 해 주십시오.').' ('._t('보유하신 포인트:').number_format($member['mb_point'])._t('글쓰기 포인트:').number_format($board['bo_write_point']).')');
+        }
+    }
+
+    $title_msg = _t('글쓰기');
+} else if ($w == 'u') {
+    // 김선용 1.00 : 글쓰기 권한과 수정은 별도로 처리되어야 함
+    //if ($member['mb_level'] < $board['bo_write_level']) {
+    if($member['mb_id'] && $write['mb_id'] == $member['mb_id']) {
+        ;
+    } else if ($member['mb_level'] < $board['bo_write_level']) {
+        if ($member['mb_id']) {
+            alert(_t('글을 수정할 권한이 없습니다.'));
+        } else {
+            alert(_t('글을 수정할 권한이 없습니다.').'\\n\\n'._t('회원이시라면 로그인 후 이용해 보십시오.'), './login.php?'.$qstr.'&amp;url='.urlencode($_SERVER['SCRIPT_NAME'].'?bo_table='.$bo_table));
+        }
+    }
+
+    $len = strlen($write['wr_reply']);
+    if ($len < 0) $len = 0;
+    $reply = substr($write['wr_reply'], 0, $len);
+
+    // 원글만 구한다.
+    $sql = " select count(*) as cnt from {$write_table}
+                where wr_reply like '{$reply}%'
+                and wr_id <> '{$write['wr_id']}'
+                and wr_num = '{$write['wr_num']}'
+                and wr_is_comment = 0 ";
+    $row = sql_fetch($sql);
+    if ($row['cnt'] && !$is_admin)
+        alert(_t('이 글과 관련된 답변글이 존재하므로 수정 할 수 없습니다.').'\\n\\n'._t('답변글이 있는 원글은 수정할 수 없습니다.'));
+
+    // 코멘트 달린 원글의 수정 여부
+    $sql = " select count(*) as cnt from {$write_table}
+                where wr_parent = '{$wr_id}'
+                and mb_id <> '{$member['mb_id']}'
+                and wr_is_comment = 1 ";
+    $row = sql_fetch($sql);
+    if ($board['bo_count_modify'] && $row['cnt'] >= $board['bo_count_modify'] && !$is_admin)
+        alert(_t('이 글과 관련된 댓글이 존재하므로 수정 할 수 없습니다.').'\\n\\n'._t('댓글이').' '.$board['bo_count_modify']._t('건 이상 달린 원글은 수정할 수 없습니다.'));
+
+    $title_msg = _t('글수정');
+} else if ($w == 'r') {
+    if ($member['mb_level'] < $board['bo_reply_level']) {
+        if ($member['mb_id'])
+            alert(_t('글을 답변할 권한이 없습니다.'));
+        else
+            alert(_t('답변글을 작성할 권한이 없습니다.').'\\n\\n'._t('회원이시라면 로그인 후 이용해 보십시오.'), './login.php?'.$qstr.'&amp;url='.urlencode($_SERVER['SCRIPT_NAME'].'?bo_table='.$bo_table));
+    }
+
+    $tmp_point = isset($member['mb_point']) ? $member['mb_point'] : 0;
+    if ($tmp_point + $board['bo_write_point'] < 0 && !$is_admin)
+        alert(_t('보유하신 포인트가 없거나 모자라서 글답변이 불가합니다.').'\\n\\n'._t('포인트를 적립하신 후 다시 글답변 해 주십시오.').'('._t('보유하신 포인트:').number_format($member['mb_point'])._t(', 글답변 포인트:').number_format($board['bo_comment_point']).')');
+
+    //if (preg_match("/[^0-9]{0,1}{$wr_id}[\r]{0,1}/",$board['bo_notice']))
+    if (in_array((int)$wr_id, $notice_array))
+        alert(_t('공지에는 답변 할 수 없습니다.'));
+
+    //----------
+    // 4.06.13 : 비밀글을 타인이 열람할 수 있는 오류 수정 (헐랭이, 플록님께서 알려주셨습니다.)
+    // 코멘트에는 원글의 답변이 불가하므로
+    if ($write['wr_is_comment'])
+        alert(_t('정상적인 접근이 아닙니다.'));
+
+    // 비밀글인지를 검사
+    if (strstr($write['wr_option'], 'secret')) {
+        if ($write['mb_id']) {
+            // 회원의 경우는 해당 글쓴 회원 및 관리자
+            if (!($write['mb_id'] == $member['mb_id'] || $is_admin))
+                alert(_t('비밀글에는 자신 또는 관리자만 답변이 가능합니다.'));
+        } else {
+            // 비회원의 경우는 비밀글에 답변이 불가함
+            if (!$is_admin)
+                alert(_t('비회원의 비밀글에는 답변이 불가합니다.'));
+        }
+    }
+    //----------
+
+    // 게시글 배열 참조
+    $reply_array = &$write;
+
+    // 최대 답변은 테이블에 잡아놓은 wr_reply 사이즈만큼만 가능합니다.
+    if (strlen($reply_array['wr_reply']) == 10)
+        alert(_t('더 이상 답변하실 수 없습니다.').'\\n\\n'._t('답변은 10단계 까지만 가능합니다.'));
+
+    $reply_len = strlen($reply_array['wr_reply']) + 1;
+    if ($board['bo_reply_order']) {
+        $begin_reply_char = 'A';
+        $end_reply_char = 'Z';
+        $reply_number = +1;
+        $sql = " select MAX(SUBSTRING(wr_reply, {$reply_len}, 1)) as reply from {$write_table} where wr_num = '{$reply_array['wr_num']}' and SUBSTRING(wr_reply, {$reply_len}, 1) <> '' ";
+    } else {
+        $begin_reply_char = 'Z';
+        $end_reply_char = 'A';
+        $reply_number = -1;
+        $sql = " select MIN(SUBSTRING(wr_reply, {$reply_len}, 1)) as reply from {$write_table} where wr_num = '{$reply_array['wr_num']}' and SUBSTRING(wr_reply, {$reply_len}, 1) <> '' ";
+    }
+    if ($reply_array['wr_reply']) $sql .= " and wr_reply like '{$reply_array['wr_reply']}%' ";
+    $row = sql_fetch($sql);
+
+    if (!$row['reply'])
+        $reply_char = $begin_reply_char;
+    else if ($row['reply'] == $end_reply_char) // A~Z은 26 입니다.
+        alert(_t('더 이상 답변하실 수 없습니다.').'\\n\\n'._t('답변은 26개 까지만 가능합니다.'));
+    else
+        $reply_char = chr(ord($row['reply']) + $reply_number);
+
+    $reply = $reply_array['wr_reply'] . $reply_char;
+
+    $title_msg = _t('글답변');
+
+    $write['wr_subject'] = 'Re: '.$write['wr_subject'];
+}
+
+// 그룹접근 가능
+if (!empty($group['gr_use_access'])) {
+    if ($is_guest) {
+        alert(_t("접근 권한이 없습니다.")."\\n\\n"._t("회원이시라면 로그인 후 이용해 보십시오."), 'login.php?'.$qstr.'&amp;url='.urlencode($_SERVER['SCRIPT_NAME'].'?bo_table='.$bo_table));
+    }
+
+    if ($is_admin == 'super' || $group['gr_admin'] == $member['mb_id'] || $board['bo_admin'] == $member['mb_id']) {
+        ; // 통과
+    } else {
+        // 그룹접근
+        $sql = " select gr_id from {$g5['group_member_table']} where gr_id = '{$board['gr_id']}' and mb_id = '{$member['mb_id']}' ";
+        $row = sql_fetch($sql);
+        if (!$row['gr_id'])
+            alert(_t('접근 권한이 없으므로 글쓰기가 불가합니다.').'\\n\\n'._t('궁금하신 사항은 관리자에게 문의 바랍니다.'));
+    }
+}
+
+// 본인확인을 사용한다면
+if ($config['cf_cert_use'] && !$is_admin) {
+    // 인증된 회원만 가능
+    if ($board['bo_use_cert'] != '' && $is_guest) {
+        alert(_t('이 게시판은 본인확인 하신 회원님만 글쓰기가 가능합니다.').'\\n\\n'._t('회원이시라면 로그인 후 이용해 보십시오.'), 'login.php?'.$qstr.'&amp;url='.urlencode($_SERVER['SCRIPT_NAME'].'?bo_table='.$bo_table));
+    }
+
+    if ($board['bo_use_cert'] == 'cert' && !$member['mb_certify']) {
+        alert(_t('이 게시판은 본인확인 하신 회원님만 글쓰기가 가능합니다.').'\\n\\n'._t('회원정보 수정에서 본인확인을 해주시기 바랍니다.'), G5_URL);
+    }
+
+    if ($board['bo_use_cert'] == 'adult' && !$member['mb_adult']) {
+        alert(_t('이 게시판은 본인확인으로 성인인증 된 회원님만 글쓰기가 가능합니다.').'\\n\\n'._t('성인인데 글쓰기가 안된다면 회원정보 수정에서 본인확인을 다시 해주시기 바랍니다.'), G5_URL);
+    }
+
+    if ($board['bo_use_cert'] == 'hp-cert' && $member['mb_certify'] != 'hp') {
+        alert(_t('이 게시판은 휴대폰 본인확인 하신 회원님만 글읽기가 가능합니다.').'\\n\\n'._t('회원정보 수정에서 휴대폰 본인확인을 해주시기 바랍니다.'), G5_URL);
+    }
+
+    if ($board['bo_use_cert'] == 'hp-adult' && (!$member['mb_adult'] || $member['mb_certify'] != 'hp')) {
+        alert(_t('이 게시판은 휴대폰 본인확인으로 성인인증 된 회원님만 글읽기가 가능합니다.').'\\n\\n'._t('현재 성인인데 글읽기가 안된다면 회원정보 수정에서 휴대폰 본인확인을 다시 해주시기 바랍니다.'), G5_URL);
+    }
+}
+
+// 글자수 제한 설정값
+if ($is_admin || $board['bo_use_dhtml_editor'])
+{
+    $write_min = $write_max = 0;
+}
+else
+{
+    $write_min = (int)$board['bo_write_min'];
+    $write_max = (int)$board['bo_write_max'];
+}
+
+$g5['title'] = ((G5_IS_MOBILE && $board['bo_mobile_subject']) ? _t($board['bo_mobile_subject']) : _t($board['bo_subject'])).' '.$title_msg;
+
+$is_notice = false;
+$notice_checked = '';
+if ($is_admin && $w != 'r') {
+    $is_notice = true;
+
+    if ($w == 'u') {
+        // 답변 수정시 공지 체크 없음
+        if ($write['wr_reply']) {
+            $is_notice = false;
+        } else {
+            if (in_array((int)$wr_id, $notice_array)) {
+                $notice_checked = 'checked';
+            }
+        }
+    }
+}
+
+$is_html = false;
+if ($member['mb_level'] >= $board['bo_html_level'])
+    $is_html = true;
+
+$is_secret = $board['bo_use_secret'];
+
+$is_mail = false;
+if ($config['cf_email_use'] && $board['bo_use_email'])
+    $is_mail = true;
+
+$recv_email_checked = '';
+if ($w == '' || strstr($write['wr_option'], 'mail'))
+    $recv_email_checked = 'checked';
+
+$is_name     = false;
+$is_password = false;
+$is_email    = false;
+$is_homepage = false;
+if ($is_guest || ($is_admin && $w == 'u' && $member['mb_id'] != $write['mb_id'])) {
+    $is_name = true;
+    $is_password = true;
+    $is_email = true;
+    $is_homepage = true;
+}
+
+$is_category = false;
+$category_option = '';
+if ($board['bo_use_category']) {
+    $ca_name = "";
+    if (isset($write['ca_name']))
+        $ca_name = $write['ca_name'];
+    $category_option = get_category_option_ktc($bo_table, $ca_name);
+    $is_category = true;
+}
+
+$is_link = false;
+if ($member['mb_level'] >= $board['bo_link_level']) {
+    $is_link = true;
+}
+
+$is_file = false;
+if ($member['mb_level'] >= $board['bo_upload_level']) {
+    $is_file = true;
+}
+
+$is_file_content = false;
+if ($board['bo_use_file_content']) {
+    $is_file_content = true;
+}
+
+$file_count = (int)$board['bo_upload_count'];
+
+$name     = "";
+$email    = "";
+$homepage = "";
+if ($w == "" || $w == "r") {
+    if ($is_member) {
+        if (isset($write['wr_name'])) {
+            $name = get_text(cut_str(stripslashes($write['wr_name']),20));
+        }
+        $email = get_email_address($member['mb_email']);
+        $homepage = get_text(stripslashes($member['mb_homepage']));
+    }
+}
+
+$html_checked   = "";
+$html_value     = "";
+$secret_checked = "";
+
+if ($w == '') {
+    $password_required = 'required';
+} else if ($w == 'u') {
+    $password_required = '';
+
+    if (!$is_admin) {
+        if (!($is_member && $member['mb_id'] == $write['mb_id'])) {
+            if (!check_password($wr_password, $write['wr_password'])) {
+                alert(_t('비밀번호가 틀립니다.'));
+            }
+        }
+    }
+
+    $name = get_text(cut_str(stripslashes($write['wr_name']),20));
+    $email = get_email_address($write['wr_email']);
+    $homepage = get_text(stripslashes($write['wr_homepage']));
+
+    for ($i=1; $i<=G5_LINK_COUNT; $i++) {
+        $write['wr_link'.$i] = get_text($write['wr_link'.$i]);
+        $link[$i] = $write['wr_link'.$i];
+    }
+
+    if (strstr($write['wr_option'], 'html1')) {
+        $html_checked = 'checked';
+        $html_value = 'html1';
+    } else if (strstr($write['wr_option'], 'html2')) {
+        $html_checked = 'checked';
+        $html_value = 'html2';
+    }
+
+    if (strstr($write['wr_option'], 'secret')) {
+        $secret_checked = 'checked';
+    }
+
+    $file = get_file($bo_table, $wr_id);
+    if($file_count < $file['count'])
+        $file_count = $file['count'];
+} else if ($w == 'r') {
+    if (strstr($write['wr_option'], 'secret')) {
+        $is_secret = true;
+        $secret_checked = 'checked';
+    }
+
+    $password_required = "required";
+
+    for ($i=1; $i<=G5_LINK_COUNT; $i++) {
+        $write['wr_link'.$i] = get_text($write['wr_link'.$i]);
+    }
+}
+
+set_session('ss_bo_table', $_REQUEST['bo_table']);
+set_session('ss_wr_id', $_REQUEST['wr_id']);
+
+$subject = "";
+if (isset($write['wr_subject'])) {
+    $subject = str_replace("\"", "&#034;", get_text(cut_str($write['wr_subject'], 255), 0));
+}
+
+$content = '';
+$content_en_US = '';
+$content_ja_JP = '';
+$content_zh_CN = '';
+$content_zh_TW = '';
+$img_append = '';
+if ($w == '') {
+    $content = $board['bo_insert_content'];
+} else if ($w == 'r') {
+    if (!strstr($write['wr_option'], 'html')) {
+        $content = "\n\n\n &gt; "
+                 ."\n &gt; "
+                 ."\n &gt; ".str_replace("\n", "\n> ", get_text($write['wr_content'], 0))
+                 ."\n &gt; "
+                 ."\n &gt; ";
+
+    }
+} else {
+    $content = get_text($write['wr_content'], 0);
+    $content_en_US = get_text($write['wr_content_en_US'], 0);
+    $content_ja_JP = get_text($write['wr_content_ja_JP'], 0);
+    $content_zh_CN = get_text($write['wr_content_zh_CN'], 0);
+    $content_zh_TW = get_text($write['wr_content_zh_TW'], 0);
+
+    $waring = get_text($write['wr_waring'], 0);
+    $waring_en_US = get_text($write['wr_waring_en_US'], 0);
+    $waring_ja_JP = get_text($write['wr_waring_ja_JP'], 0);
+    $waring_zh_CN = get_text($write['wr_waring_zh_CN'], 0);
+    $waring_zh_TW = get_text($write['wr_waring_zh_TW'], 0);    
+
+    $service = get_text($write['wr_service'], 0);
+    $service_en_US = get_text($write['wr_service_en_US'], 0);
+    $service_ja_JP = get_text($write['wr_service_ja_JP'], 0);
+    $service_zh_CN = get_text($write['wr_service_zh_CN'], 0);
+    $service_zh_TW = get_text($write['wr_service_zh_TW'], 0);  
+
+    $img_append_en_US = get_text($write['wr_img_append_en_US'], 0);     
+    $img_append_ja_JP = get_text($write['wr_img_append_ja_JP'], 0);     
+    $img_append_zh_CN = get_text($write['wr_img_append_zh_CN'], 0);     
+    $img_append_zh_TW = get_text($write['wr_img_append_zh_TW'], 0);      
+	
+    $guide = get_text($write['wr_guide'], 0);
+    $guide_en_US = get_text($write['wr_guide_en_US'], 0);
+    $guide_ja_JP = get_text($write['wr_guide_ja_JP'], 0);
+    $guide_zh_CN = get_text($write['wr_guide_zh_CN'], 0);
+    $guide_zh_TW = get_text($write['wr_guide_zh_TW'], 0);  
+
+    $recom_ko_KR = get_text($write['wr_recom_ko_KR'], 0);
+    $recom_en_US = get_text($write['wr_recom_en_US'], 0);
+    $recom_ja_JP = get_text($write['wr_recom_ja_JP'], 0);
+    $recom_zh_CN = get_text($write['wr_recom_zh_CN'], 0);
+    $recom_zh_TW = get_text($write['wr_recom_zh_TW'], 0); 
+
+
+    $subway_ko_KR = get_text($write['wr_subway_ko_KR'], 0);
+    $subway_en_US = get_text($write['wr_subway_en_US'], 0);
+    $subway_ja_JP = get_text($write['wr_subway_ja_JP'], 0);
+    $subway_zh_CN = get_text($write['wr_subway_zh_CN'], 0);
+    $subway_zh_TW = get_text($write['wr_subway_zh_TW'], 0); 
+    
+    $near_ko_KR = get_text($write['wr_near_ko_KR'], 0);
+    $near_en_US = get_text($write['wr_near_en_US'], 0);
+    $near_ja_JP = get_text($write['wr_near_ja_JP'], 0);
+    $near_zh_CN = get_text($write['wr_near_zh_CN'], 0);
+    $near_zh_TW = get_text($write['wr_near_zh_TW'], 0); 
+
+    $item_ko_KR = get_text($write['wr_item_ko_KR'], 0);
+    $item_en_US = get_text($write['wr_item_en_US'], 0);
+    $item_ja_JP = get_text($write['wr_item_ja_JP'], 0);
+    $item_zh_CN = get_text($write['wr_item_zh_CN'], 0);
+    $item_zh_TW = get_text($write['wr_item_zh_TW'], 0); 
+
+    $main_ko_KR = get_text($write['wr_main_ko_KR'], 0);
+    $main_en_US = get_text($write['wr_main_en_US'], 0);
+    $main_ja_JP = get_text($write['wr_main_ja_JP'], 0);
+    $main_zh_CN = get_text($write['wr_main_zh_CN'], 0);
+    $main_zh_TW = get_text($write['wr_main_zh_TW'], 0); 
+
+    $etc_ko_KR = get_text($write['wr_etc_ko_KR'], 0);
+    $etc_en_US = get_text($write['wr_etc_en_US'], 0);
+    $etc_ja_JP = get_text($write['wr_etc_ja_JP'], 0);
+    $etc_zh_CN = get_text($write['wr_etc_zh_CN'], 0);
+    $etc_zh_TW = get_text($write['wr_etc_zh_TW'], 0); 
+
+
+}
+
+$upload_max_filesize = number_format($board['bo_upload_size']) . ' '._t('바이트');
+
+$width = $board['bo_table_width'];
+if ($width <= 100)
+    $width .= '%';
+else
+    $width .= 'px';
+
+$captcha_html = '';
+$captcha_js   = '';
+if ($is_guest) {
+    $captcha_html = captcha_html();
+    $captcha_js   = chk_captcha_js();
+}
+
+$is_dhtml_editor = false;
+$is_dhtml_editor_use = false;
+$editor_content_js = '';
+if(!is_mobile() || defined('G5_IS_MOBILE_DHTML_USE') && G5_IS_MOBILE_DHTML_USE)
+    $is_dhtml_editor_use = true;
+
+// 모바일에서는 G5_IS_MOBILE_DHTML_USE 설정에 따라 DHTML 에디터 적용
+if ($config['cf_editor'] && $is_dhtml_editor_use && $board['bo_use_dhtml_editor'] && $member['mb_level'] >= $board['bo_html_level']) {
+    $is_dhtml_editor = true;
+
+    if(is_file(G5_EDITOR_PATH.'/'.$config['cf_editor'].'/autosave.editor.js'))
+        $editor_content_js = '<script src="'.G5_EDITOR_URL.'/'.$config['cf_editor'].'/autosave.editor.js"></script>'.PHP_EOL;
+}
+if($bo_table == "cardbenefit"){
+    $editor_html = editor1_html('wr_content', $content, $is_dhtml_editor,"한글 내용");
+    $editor_en_US_html = editor1_html('wr_content_en_US', $content_en_US, $is_dhtml_editor,"영어 내용");
+    $editor_ja_JP_html = editor1_html('wr_content_ja_JP', $content_ja_JP, $is_dhtml_editor,"일본 내용");
+    $editor_zh_CN_html = editor1_html('wr_content_zh_CN', $content_zh_CN, $is_dhtml_editor,"간체 내용");
+    $editor_zh_TW_html = editor1_html('wr_content_zh_TW', $content_zh_TW, $is_dhtml_editor,"번체 내용"); 
+
+    $wa_editor_html = editor1_html('wr_waring', $waring, $is_dhtml_editor,"한글 내용");
+    $wa_editor_en_US_html = editor1_html('wr_waring_en_US', $waring_en_US, $is_dhtml_editor,"영어 내용");
+    $wa_editor_ja_JP_html = editor1_html('wr_waring_ja_JP', $waring_ja_JP, $is_dhtml_editor,"일본 내용");
+    $wa_editor_zh_CN_html = editor1_html('wr_waring_zh_CN', $waring_zh_CN, $is_dhtml_editor,"간체 내용");
+    $wa_editor_zh_TW_html = editor1_html('wr_waring_zh_TW', $waring_zh_TW, $is_dhtml_editor,"번체 내용");   
+
+    $service_editor_html = editor1_html('wr_service', $service, $is_dhtml_editor,"한글 내용");
+    $service_editor_en_US_html = editor1_html('wr_service_en_US', $service_en_US, $is_dhtml_editor,"영어 내용");
+    $service_editor_ja_JP_html = editor1_html('wr_service_ja_JP', $service_ja_JP, $is_dhtml_editor,"일본 내용");
+    $service_editor_zh_CN_html = editor1_html('wr_service_zh_CN', $service_zh_CN, $is_dhtml_editor,"간체 내용");
+    $service_editor_zh_TW_html = editor1_html('wr_service_zh_TW', $service_zh_TW, $is_dhtml_editor,"번체 내용");  
+
+    $wr_img_append_html_en_US = editor4_html('wr_img_append_en_US', $img_append_en_US, 1,"영문 로고"); 
+    $wr_img_append_html_ja_JP = editor4_html('wr_img_append_ja_JP', $img_append_ja_JP, 1,"일본 로고"); 
+    $wr_img_append_html_zh_CN = editor4_html('wr_img_append_zh_CN', $img_append_zh_CN, 1,"간체 로고"); 
+    $wr_img_append_html_zh_TW = editor4_html('wr_img_append_zh_TW', $img_append_zh_TW, 1,"번체 로고");    
+	
+	$wr_guide_html_ko_KR = editor4_html('wr_guide', $guide, 1,"한글 안내"); 
+    $wr_guide_html_en_US = editor4_html('wr_guide_en_US', $guide_en_US, 1,"영문 안내"); 
+    $wr_guide_html_ja_JP = editor4_html('wr_guide_ja_JP', $guide_ja_JP, 1,"일본 안내"); 
+    $wr_guide_html_zh_CN = editor4_html('wr_guide_zh_CN', $guide_zh_CN, 1,"간체 안내"); 
+    $wr_guide_html_zh_TW = editor4_html('wr_guide_zh_TW', $guide_zh_TW, 1,"번체 안내");  
+
+
+}else if($bo_table == "tourinfo" || $bo_table == "course"){
+    $editor_html = editor4_html('wr_content', $content, $is_dhtml_editor);
+    $editor_en_US_html = editor4_html('wr_content_en_US', $content_en_US, $is_dhtml_editor);
+    $editor_ja_JP_html = editor4_html('wr_content_ja_JP', $content_ja_JP, $is_dhtml_editor);
+    $editor_zh_CN_html = editor4_html('wr_content_zh_CN', $content_zh_CN, $is_dhtml_editor);
+    $editor_zh_TW_html = editor4_html('wr_content_zh_TW', $content_zh_TW, $is_dhtml_editor); 
+
+    $service_editor_html = editor4_html('wr_service', $service, $is_dhtml_editor,"한글 내용");
+    $service_editor_en_US_html = editor4_html('wr_service_en_US', $service_en_US, $is_dhtml_editor,"영어 내용");
+    $service_editor_ja_JP_html = editor4_html('wr_service_ja_JP', $service_ja_JP, $is_dhtml_editor,"일본 내용");
+    $service_editor_zh_CN_html = editor4_html('wr_service_zh_CN', $service_zh_CN, $is_dhtml_editor,"간체 내용");
+    $service_editor_zh_TW_html = editor4_html('wr_service_zh_TW', $service_zh_TW, $is_dhtml_editor,"번체 내용");   
+
+	if( $bo_table == "course" ){
+		$recom_editor_ko_KR_html = editor4_html('wr_recom_ko_KR', $recom_ko_KR, 1,"한글 내용");
+		$recom_editor_en_US_html = editor4_html('wr_recom_en_US', $recom_en_US, 1,"영어 내용");
+		$recom_editor_ja_JP_html = editor4_html('wr_recom_ja_JP', $recom_ja_JP, 1,"일본 내용");
+		$recom_editor_zh_CN_html = editor4_html('wr_recom_zh_CN', $recom_zh_CN, 1,"간체 내용");
+		$recom_editor_zh_TW_html = editor4_html('wr_recom_zh_TW', $recom_zh_TW, 1,"번체 내용"); 
+
+		$subway_editor_ko_KR_html = editor4_html('wr_subway_ko_KR', $subway_ko_KR, 1,"한글 내용");
+		$subway_editor_en_US_html = editor4_html('wr_subway_en_US', $subway_en_US, 1,"영어 내용");
+		$subway_editor_ja_JP_html = editor4_html('wr_subway_ja_JP', $subway_ja_JP, 1,"일본 내용");
+		$subway_editor_zh_CN_html = editor4_html('wr_subway_zh_CN', $subway_zh_CN, 1,"간체 내용");
+		$subway_editor_zh_TW_html = editor4_html('wr_subway_zh_TW', $subway_zh_TW, 1,"번체 내용"); 
+
+        $near_editor_ko_KR_html = editor4_html('wr_near_ko_KR', $near_ko_KR, 1,"한글 내용");
+		$near_editor_en_US_html = editor4_html('wr_near_en_US', $near_en_US, 1,"영어 내용");
+		$near_editor_ja_JP_html = editor4_html('wr_near_ja_JP', $near_ja_JP, 1,"일본 내용");
+		$near_editor_zh_CN_html = editor4_html('wr_near_zh_CN', $near_zh_CN, 1,"간체 내용");
+		$near_editor_zh_TW_html = editor4_html('wr_near_zh_TW', $near_zh_TW, 1,"번체 내용"); 
+
+        $item_editor_ko_KR_html = editor4_html('wr_item_ko_KR', $item_ko_KR, 1,"한글 내용");
+		$item_editor_en_US_html = editor4_html('wr_item_en_US', $item_en_US, 1,"영어 내용");
+		$item_editor_ja_JP_html = editor4_html('wr_item_ja_JP', $item_ja_JP, 1,"일본 내용");
+		$item_editor_zh_CN_html = editor4_html('wr_item_zh_CN', $item_zh_CN, 1,"간체 내용");
+		$item_editor_zh_TW_html = editor4_html('wr_item_zh_TW', $item_zh_TW, 1,"번체 내용"); 
+
+        $main_editor_ko_KR_html = editor4_html('wr_main_ko_KR', $main_ko_KR, 1,"한글 내용");
+		$main_editor_en_US_html = editor4_html('wr_main_en_US', $main_en_US, 1,"영어 내용");
+		$main_editor_ja_JP_html = editor4_html('wr_main_ja_JP', $main_ja_JP, 1,"일본 내용");
+		$main_editor_zh_CN_html = editor4_html('wr_main_zh_CN', $main_zh_CN, 1,"간체 내용");
+		$main_editor_zh_TW_html = editor4_html('wr_main_zh_TW', $main_zh_TW, 1,"번체 내용"); 
+
+        $etc_editor_ko_KR_html = editor4_html('wr_etc_ko_KR', $etc_ko_KR, 1,"한글 내용");
+		$etc_editor_en_US_html = editor4_html('wr_etc_en_US', $etc_en_US, 1,"영어 내용");
+		$etc_editor_ja_JP_html = editor4_html('wr_etc_ja_JP', $etc_ja_JP, 1,"일본 내용");
+		$etc_editor_zh_CN_html = editor4_html('wr_etc_zh_CN', $etc_zh_CN, 1,"간체 내용");
+		$etc_editor_zh_TW_html = editor4_html('wr_etc_zh_TW', $etc_zh_TW, 1,"번체 내용"); 
+
+
+	}
+
+
+}else{
+    $editor_html = editor_html('wr_content', $content, $is_dhtml_editor);
+    $editor_en_US_html = editor_html('wr_content_en_US', $content_en_US, $is_dhtml_editor);
+    $editor_ja_JP_html = editor_html('wr_content_ja_JP', $content_ja_JP, $is_dhtml_editor);
+    $editor_zh_CN_html = editor_html('wr_content_zh_CN', $content_zh_CN, $is_dhtml_editor);
+    $editor_zh_TW_html = editor_html('wr_content_zh_TW', $content_zh_TW, $is_dhtml_editor); 
+}
+
+
+$editor_js = '';
+$editor_js .= get_editor_js('wr_content', $is_dhtml_editor);
+//$editor_js .= chk_editor_js('wr_content', $is_dhtml_editor);
+
+
+$editor_js_ko_KR = '';
+$editor_js_ko_KR .= get_editor_js('wr_content_ko_KR', $is_dhtml_editor);
+//$editor_js_ko_KR .= chk_editor_js('wr_content_ko_KR', $is_dhtml_editor);
+
+
+$editor_js_en_US = '';
+$editor_js_en_US .= get_editor_js('wr_content_en_US', $is_dhtml_editor);
+//$editor_js_en_US .= chk_editor_js('wr_content_en_US', $is_dhtml_editor);
+
+
+$editor_js_ja_JP = '';
+$editor_js_ja_JP .= get_editor_js('wr_content_ja_JP', $is_dhtml_editor);
+//$editor_js_ja_JP .= chk_editor_js('wr_content_ja_JP', $is_dhtml_editor);
+
+
+$editor_js_zh_CN = '';
+$editor_js_zh_CN .= get_editor_js('wr_content_zh_CN', $is_dhtml_editor);
+//$editor_js_zh_CN .= chk_editor_js('wr_content_zh_CN', $is_dhtml_editor);
+
+
+$editor_js_zh_TW = '';
+$editor_js_zh_TW .= get_editor_js('wr_content_zh_TW', $is_dhtml_editor);
+//$editor_js_zh_TW .= chk_editor_js('wr_content_zh_TW', $is_dhtml_editor);
+
+
+$editor_js_img_en_US = '';
+$editor_js_img_en_US .= get_editor_js('wr_img_append_en_US', 1);
+//$editor_js_img_en_US .= chk_editor_js('wr_img_append_en_US', 1);
+
+$editor_js_img_ja_JP = '';
+$editor_js_img_ja_JP .= get_editor_js('wr_img_append_ja_JP', 1);
+//$editor_js_img_ja_JP .= chk_editor_js('wr_img_append_ja_JP', 1);
+
+$editor_js_img_zh_CN = '';
+$editor_js_img_zh_CN .= get_editor_js('wr_img_append_zh_CN', 1);
+//$editor_js_img_zh_CN .= chk_editor_js('wr_img_append_zh_CN', 1);
+
+$editor_js_img_zh_TW = '';
+$editor_js_img_zh_TW .= get_editor_js('wr_img_append_zh_TW', 1);
+//$editor_js_img_zh_TW .= chk_editor_js('wr_img_append_zh_TW', 1);
+
+
+///////
+$editor_js_guide = '';
+$editor_js_guide .= get_editor_js('wr_guide', 1);
+//$editor_js_guide .= chk_editor_js('wr_guide', 1);
+
+
+$editor_js_guide_en_US = '';
+$editor_js_guide_en_US .= get_editor_js('wr_guide_en_US', 1);
+//$editor_js_guide_en_US .= chk_editor_js('wr_guide_en_US', 1);
+
+$editor_js_guide_ja_JP = '';
+$editor_js_guide_ja_JP .= get_editor_js('wr_guide_ja_JP', 1);
+//$editor_js_guide_ja_JP .= chk_editor_js('wr_guide_ja_JP', 1);
+
+$editor_js_guide_zh_CN = '';
+$editor_js_guide_zh_CN .= get_editor_js('wr_guide_zh_CN', 1);
+//$editor_js_guide_zh_CN .= chk_editor_js('wr_guide_zh_CN', 1);
+
+$editor_js_guide_zh_TW = '';
+$editor_js_guide_zh_TW .= get_editor_js('wr_guide_zh_TW', 1);
+//$editor_js_guide_zh_TW .= chk_editor_js('wr_guide_zh_TW', 1);
+
+/////
+
+$editor_js_recom_ko_KR = '';
+$editor_js_recom_ko_KR .= get_editor_js('wr_recom_ko_KR', 1);
+//$editor_js_recom_ko_KR .= chk_editor_js('wr_recom_ko_KR', 1);
+
+
+$editor_js_recom_en_US = '';
+$editor_js_recom_en_US .= get_editor_js('wr_recom_en_US', 1);
+//$editor_js_recom_en_US .= chk_editor_js('wr_recom_en_US', 1);
+
+$editor_js_recom_ja_JP = '';
+$editor_js_recom_ja_JP .= get_editor_js('wr_recom_ja_JP', 1);
+//$editor_js_recom_ja_JP .= chk_editor_js('wr_recom_ja_JP', 1);
+
+$editor_js_recom_zh_CN = '';
+$editor_js_recom_zh_CN .= get_editor_js('wr_recom_zh_CN', 1);
+//$editor_js_recom_zh_CN .= chk_editor_js('wr_recom_zh_CN', 1);
+
+$editor_js_recom_zh_TW = '';
+$editor_js_recom_zh_TW .= get_editor_js('wr_recom_zh_TW', 1);
+//$editor_js_recom_zh_TW .= chk_editor_js('wr_recom_zh_TW', 1);
+
+
+///////
+
+$editor_js_subway_ko_KR = '';
+$editor_js_subway_ko_KR .= get_editor_js('wr_subway_ko_KR', 1);
+//$editor_js_subway_ko_KR .= chk_editor_js('wr_subway_ko_KR', 1);
+
+
+$editor_js_subway_en_US = '';
+$editor_js_subway_en_US .= get_editor_js('wr_subway_en_US', 1);
+//$editor_js_subway_en_US .= chk_editor_js('wr_subway_en_US', 1);
+
+$editor_js_subway_ja_JP = '';
+$editor_js_subway_ja_JP .= get_editor_js('wr_subway_ja_JP', 1);
+//$editor_js_subway_ja_JP .= chk_editor_js('wr_subway_ja_JP', 1);
+
+$editor_js_subway_zh_CN = '';
+$editor_js_subway_zh_CN .= get_editor_js('wr_subway_zh_CN', 1);
+//$editor_js_subway_zh_CN .= chk_editor_js('wr_subway_zh_CN', 1);
+
+$editor_js_subway_zh_TW = '';
+$editor_js_subway_zh_TW .= get_editor_js('wr_subway_zh_TW', 1);
+//$editor_js_subway_zh_TW .= chk_editor_js('wr_subway_zh_TW', 1);
+
+
+//////////////
+
+$editor_js_near_ko_KR = '';
+$editor_js_near_ko_KR .= get_editor_js('wr_near_ko_KR', 1);
+//$editor_js_near_ko_KR .= chk_editor_js('wr_near_ko_KR', 1);
+
+
+$editor_js_near_en_US = '';
+$editor_js_near_en_US .= get_editor_js('wr_near_en_US', 1);
+//$editor_js_near_en_US .= chk_editor_js('wr_near_en_US', 1);
+
+$editor_js_near_ja_JP = '';
+$editor_js_near_ja_JP .= get_editor_js('wr_near_ja_JP', 1);
+//$editor_js_near_ja_JP .= chk_editor_js('wr_near_ja_JP', 1);
+
+$editor_js_near_zh_CN = '';
+$editor_js_near_zh_CN .= get_editor_js('wr_near_zh_CN', 1);
+//$editor_js_near_zh_CN .= chk_editor_js('wr_near_zh_CN', 1);
+
+$editor_js_near_zh_TW = '';
+$editor_js_near_zh_TW .= get_editor_js('wr_near_zh_TW', 1);
+//$editor_js_near_zh_TW .= chk_editor_js('wr_near_zh_TW', 1);
+
+
+//////////////
+
+$editor_js_item_ko_KR = '';
+$editor_js_item_ko_KR .= get_editor_js('wr_item_ko_KR', 1);
+//$editor_js_item_ko_KR .= chk_editor_js('wr_item_ko_KR', 1);
+
+
+$editor_js_itemk_en_US = '';
+$editor_js_item_en_US .= get_editor_js('wr_item_en_US', 1);
+//$editor_js_item_en_US .= chk_editor_js('wr_item_en_US', 1);
+
+$editor_js_item_ja_JP = '';
+$editor_js_item_ja_JP .= get_editor_js('wr_item_ja_JP', 1);
+//$editor_js_item_ja_JP .= chk_editor_js('wr_item_ja_JP', 1);
+
+$editor_js_item_zh_CN = '';
+$editor_js_item_zh_CN .= get_editor_js('wr_item_zh_CN', 1);
+//$editor_js_item_zh_CN .= chk_editor_js('wr_item_zh_CN', 1);
+
+$editor_js_item_zh_TW = '';
+$editor_js_item_zh_TW .= get_editor_js('wr_item_zh_TW', 1);
+//$editor_js_item_zh_TW .= chk_editor_js('wr_item_zh_TW', 1);
+
+
+//////////////
+
+$editor_js_main_ko_KR = '';
+$editor_js_main_ko_KR .= get_editor_js('wr_main_ko_KR', 1);
+//$editor_js_main_ko_KR .= chk_editor_js('wr_main_ko_KR', 1);
+
+
+$editor_js_main_en_US = '';
+$editor_js_main_en_US .= get_editor_js('wr_main_en_US', 1);
+//$editor_js_main_en_US .= chk_editor_js('wr_main_en_US', 1);
+
+$editor_js_main_ja_JP = '';
+$editor_js_main_ja_JP .= get_editor_js('wr_main_ja_JP', 1);
+//$editor_js_main_ja_JP .= chk_editor_js('wr_main_ja_JP', 1);
+
+$editor_js_main_zh_CN = '';
+$editor_js_main_zh_CN .= get_editor_js('wr_main_zh_CN', 1);
+//$editor_js_main_zh_CN .= chk_editor_js('wr_main_zh_CN', 1);
+
+$editor_js_main_zh_TW = '';
+$editor_js_main_zh_TW .= get_editor_js('wr_main_zh_TW', 1);
+//$editor_js_main_zh_TW .= chk_editor_js('wr_main_zh_TW', 1);
+
+
+//////////////
+
+$editor_js_etc_ko_KR = '';
+$editor_js_etc_ko_KR .= get_editor_js('wr_etc_ko_KR', 1);
+//$editor_js_etc_ko_KR .= chk_editor_js('wr_etc_ko_KR', 1);
+
+
+$editor_js_etc_en_US = '';
+$editor_js_etc_en_US .= get_editor_js('wr_etc_en_US', 1);
+//$editor_js_etc_en_US .= chk_editor_js('wr_etc_en_US', 1);
+
+$editor_js_etc_ja_JP = '';
+$editor_js_etc_ja_JP .= get_editor_js('wr_etc_ja_JP', 1);
+//$editor_js_etc_ja_JP .= chk_editor_js('wr_etc_ja_JP', 1);
+
+$editor_js_etc_zh_CN = '';
+$editor_js_etc_zh_CN .= get_editor_js('wr_etc_zh_CN', 1);
+//$editor_js_etc_zh_CN .= chk_editor_js('wr_etc_zh_CN', 1);
+
+$editor_js_etc_zh_TW = '';
+$editor_js_etc_zh_TW .= get_editor_js('wr_etc_zh_TW', 1);
+//$editor_js_etc_zh_TW .= chk_editor_js('wr_etc_zh_TW', 1);
+
+
+//////////////
+
+// 임시 저장된 글 수
+$autosave_count = autosave_count($member['mb_id']);
+
+//include_once(G5_PATH.'/head.sub.php');
+@include_once ($board_skin_path.'/write.head.skin.php');
+include_once('./board_head.php');
+
+if($bo_table == "cardbenefit"){
+    $action_url = https_url(G5_ADMIN_BBS_DIR)."/write_update_brand.php";
+}else if($bo_table == "map"){
+    $action_url = https_url(G5_ADMIN_BBS_DIR)."/write_update_map.php";
+}else if($bo_table == "allshop"){
+    $action_url = https_url(G5_ADMIN_BBS_DIR)."/write_update_ktc.php";
+}else if($bo_table == "tourinfo"){
+    $action_url = https_url(G5_ADMIN_BBS_DIR)."/write_update_tourinfo.php";
+}else if($bo_table == "course"){
+    $action_url = https_url(G5_ADMIN_BBS_DIR)."/write_update_course.php";
+}else if($bo_table == "PRcenter" || $bo_table == "event" || $bo_table == "knotice"){
+    $action_url = https_url(G5_ADMIN_BBS_DIR)."/write_update_prcenter.php";
+}else if($bo_table == "festival"){
+    $action_url = https_url(G5_ADMIN_BBS_DIR)."/write_update_festival.php";
+}else{
+    $action_url = https_url(G5_ADMIN_BBS_DIR)."/write_update.php";
+}
+
+echo '<!-- skin : '.(G5_IS_MOBILE ? $board['bo_mobile_skin'] : $board['bo_skin']).' -->';
+
+include_once ($board_skin_path.'/write.skin.php');
+
+include_once('./board_tail.php');
+@include_once ($board_skin_path.'/write.tail.skin.php');
+//include_once(G5_PATH.'/tail.sub.php');
+include_once ('../admin.tail.php'); 
+?>
