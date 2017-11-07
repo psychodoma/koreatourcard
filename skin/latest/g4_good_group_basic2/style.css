@@ -1,0 +1,27 @@
+/*
+// 굿빌더
+*/
+/* .latestGG { width:100%; margin-top:1px; border:1px solid #dddddd; background-color: #f0f0f0;} */
+.latestGG { width:100%; margin-top:0px; border:0px solid #dddddd; }
+
+.latestGG .title { float:left; width:128px; height:20px; font-size:10pt; font-weight: bold; color: #000000; vertical-align:middle; padding:3px; }
+.latestGG .more { float:right; width:40px; height:20px; margin-top:0px; vertical-align:middle; padding:3px; }
+
+.latestGG .title a:link , .latestGG .title a:visited { text-decoration:none; }
+.latestGG .title a:hover { text-decoration:underline; }
+
+/* .latestGG ul { margin:0; padding:3px 0 3px 0; list-style:none; background-color: #ffffff; } */
+.latestGG ul { margin:0; padding:3px 0 3px 0; list-style:none; }
+.latestGG li { margin: 5px 8px 5px 8px; padding:0; color: #000000; }
+
+.latestGG li a:link , .latestGG li a:visited { color:#000000;  text-decoration:none; }
+.latestGG li a:hover {color:#aa0000; text-decoration:underline; }
+
+.latestDatetime { font-size:8pt; color:#999999; }
+.latestNotice { color:#2c88b9; font-weight:bold; }
+.latestComment { font-size:8pt; color:#9a9a9a; }
+
+.latestSubject { width:165px; float:left; }
+.latestDate { width:35px; float:right; }
+
+latestGG tr.latestHeight { height:18.5px; }

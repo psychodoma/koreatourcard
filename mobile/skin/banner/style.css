@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+.fbnbanner{cursor:pointer;}
+
+/* aside:배너 */
+.sbn {}
+.sbn h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+.sbn ul {margin:0;padding:0;border:0;list-style:none}
+.sbn li {margin:0 0 1px}
+.sbn ul li a{cursor:pointer;}
+.sbn .sbn_border {border:1px solid #d5d5d5} /* 인덱스 배너도 함께 사용 */
+
+/* mm1:쇼핑분류배너 */
+.sbn {position:relative;}
+.sbn .sbn_btn {z-index:100;position:absolute;top:0;display:none;}
+.sbn .sbn_btn button {position:relative;top:110px;margin:0;padding:0;width:40px;height:40px;border:0;background:transparent; overflow:hidden}
+.sbn .sbn_btn span {display:block;width:100%;height:100%;background:url('img/sbn_btn_wizwig.png'); cursor:pointer;}
+.sbn #sbn_btn_p {left:5px}
+.sbn .sbn_btn #sbn_btn_prev span {background-position:0 -113px}
+.sbn #sbn_btn_n {right:5px}
+.sbn .sbn_btn #sbn_btn_next span {background-position:-40px -113px}
+.sbn ul {position:relative;overflow:hidden}
+.sbn ul li {position:absolute;display:none;top:0;left:0}
+.sbn ul li.sbn_first{display:block}
+
+/
+/* mp2~4:판매점배너 */
+.scn h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+
+
+/* mc5:행사/전시배너 */
+.bbsn {_margin:0 0 5px}
+.bbsn h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+.bbsn ul {margin:0;padding:0;border:0;list-style:none;width:100%;height:100%;}
+.bbsn li {margin:0 0 1px;width:100%;height:100%;}
+.bbsn ul li a{cursor:pointer;}
+.bbsn .bbsn_border {border:1px solid #d5d5d5} /* 인덱스 배너도 함께 사용 */
+
+.bbsn {position:relative;}
+.bbsn .bbsn_btn {z-index:100;position:absolute;top:38%}
+.bbsn .bbsn_btn button {position:relative;top:110px;margin:0;padding:0;width:40px;height:40px;border:0;background:transparent; overflow:hidden}
+.bbsn .bbsn_btn span {display:block;width:100%;height:100%;background:url('img/sbn_btn_wizwig.png'); cursor:pointer;}
+.bbsn #bbsn_btn_p {right:50px}
+.bbsn .bbsn_btn #bbsn_btn_prev span {background-position:0 -113px}
+.bbsn #bbsn_btn_n {right:10px}
+.bbsn .bbsn_btn #bbsn_btn_next span {background-position:-40px -113px}
+.bbsn ul {position:relative;overflow:hidden}
+.bbsn ul li {position:absolute;display:none;top:0;left:0}
+.bbsn ul li.bbsn_first{display:block;width:100%;height:100%;}
+
+
+/* mc6:행사/전시배너 */
+.bbpn {_margin:0 0 5px}
+.bbpn h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+.bbpn ul {margin:0;padding:0;border:0;list-style:none;width:100%;height:100%;}
+.bbpn li {margin:0 0 1px;width:100%;height:100%;}
+.bbpn ul li a{cursor:pointer;width:100%;height:100%;}
+.bbpn .bbpn_border {border:1px solid #d5d5d5} /* 인덱스 배너도 함께 사용 */
+
+.bbpn {position:relative;}
+.bbpn .bbpn_btn {z-index:100;position:absolute;top:38%}
+.bbpn .bbpn_btn button {position:relative;top:110px;margin:0;padding:0;width:40px;height:40px;border:0;background:transparent; overflow:hidden}
+.bbpn .bbpn_btn span {display:block;width:100%;height:100%;background:url('img/sbn_btn_wizwig.png'); cursor:pointer;}
+.bbpn #bbpn_btn_p {right:50px}
+.bbpn .bbpn_btn #bbpn_btn_prev span {background-position:0 -113px}
+.bbpn #bbpn_btn_n {right:10px}
+.bbpn .bbpn_btn #bbpn_btn_next span {background-position:-40px -113px}
+.bbpn ul {position:relative;overflow:hidden}
+.bbpn ul li {position:absolute;display:none;top:0;left:0}
+.bbpn ul li.bbpn_first{display:block}
+
+
+
+

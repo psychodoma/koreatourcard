@@ -1,0 +1,80 @@
+@charset "utf-8";
+
+/*
+.top_btn{
+	text-align:center;
+	min-width: 1270px;
+}
+*/
+.top_btn{
+	position: absolute;
+    top: 0;
+    right: 3%;
+}
+
+.partner{
+	border-top:1px solid #d9d9d9;
+	width:100%;
+	display: inline-block;
+}
+
+.partner_wp{
+	overflow: hidden;
+    max-width: 720px;
+	margin: 0 auto;
+}
+
+.partner_area{
+	float:right;
+	width:100%;
+
+}
+.partner_clear{
+	float:left;
+	width:1%;
+	height:1px;
+}
+
+.footer{
+	width: 100%;
+    background-color: #31353e;
+}
+.footer_area{
+	position: relative;
+	max-width: 720px;
+    margin: 0 auto;
+    color: #fff;
+    line-height: 24px;
+}
+.ft_pad{
+	padding: 20px 3% 15px 3%;
+}
+.ft_btn{
+	display: inline-block;
+    margin-bottom: 15px;
+}
+.ft_btn li{
+	float: left;
+    width: 30%;
+    margin-right: 15px;
+}
+.ft_btn li a{}
+.ft_btn li a img{width: 100%;}
+
+.address{}
+.copy{letter-spacing: normal;}
+
+
+
+
+
+
+@media screen and (max-width: 414px) { /* 아이폰6+ 해상도 */
+	.partner_area{
+		width:80%;
+	}
+
+	.partner_clear{
+		width:19%;
+	}
+}

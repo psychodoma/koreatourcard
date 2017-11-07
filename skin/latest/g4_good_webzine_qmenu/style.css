@@ -1,0 +1,24 @@
+/*
+// 굿빌더
+*/
+/* .latestQmenuAd { width:100%; margin:0px auto; border:0px solid #dddddd; background-color:#f0f0f0; } */
+.latestQmenuAd { width:100%; margin:0px auto; border:0px solid #dddddd; }
+
+.latestQmenuAd .title { width:140px; float:left; height:20px; font-size:10pt; font-weight: bold; color: #666666; vertical-align:middle; padding:3px; }
+.latestQmenuAd .more { width:40px; float:right; height:20px; vertical-align:middle; padding:3px; }
+
+.latestQmenuAd .title a:link , .latestQmenuAd .title a:visited { text-decoration:none; }
+.latestQmenuAd .title a:hover { text-decoration:underline; }
+
+.latestQmenuAd ul { width:100%; margin:0; padding:3px 0 3px 0; list-style:none; text-align: left; }
+.latestQmenuAd li { margin:0px; padding:0; height:20px; }
+
+.latestQmenuAd li img { border:1px solid #ffffff; }
+.latestQmenuAd li img:hover { border:1px solid #aa0000; }
+
+.latestQmenuAd li a:link, .latestQmenuAd li a:visited { color:#6a6a6a; text-decoration:none; }
+.latestQmenuAd li a:hover { color:#aa0000; text-decoration:underline; }
+
+.latestQmenuAd .latestIMG { float:left; margin:0 1px 0 1px; overflow:hidden; border:0px solid #eeeeee; }
+.latestQmenuAd .latestIMG img { border:1px solid #dddddd; }
+.latestQmenuAd .latestIMG img:hover { border:1px solid #aa0000; }

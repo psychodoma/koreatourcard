@@ -1,0 +1,25 @@
+/* .latestThumb2 { width:100%; margin:0px auto; border:0px solid #dddddd; background-color: #f0f0f0;} */
+.latestThumb2 { width:100%; margin:0px auto; border:0px solid #dddddd; }
+
+.latestThumb2 .title  { float:left; width:160px; height:20px; font-size:10pt; font-weight: bold; color: #666666; vertical-align:middle; padding:3px; }
+.latestThumb2 .more { float:right; width:40px; height:20px; vertical-align:middle; padding:3px; }
+
+.latestThumb2 .title a:link , .latestThumb2 .title a:visited { text-decoration:none; }
+.latestThumb2 .title a:hover { text-decoration:underline; }
+
+/* .latestThumb ul	{ width:100%; margin:0; padding:3px 0 3px 0; list-style:none; background-color: #ffffff; } */
+.latestThumb2 ul	{ width:100%; margin:0; padding:3px 0 3px 0; list-style:none; }
+.latestThumb2 li { margin:5px; padding:0; }
+
+/* .latestThumb2 .latestIMG { float:left; margin-right:0; width:120px; height:130px; overflow:hidden; border:0px solid #eeeeee; } */
+.latestThumb2 .latestIMG { float:left; margin-right:0; /*width:150px;*/ border:0px solid #eeeeee; padding:0 4px}
+.latestThumb2 .latestIMG img { border:1px solid #dddddd; /*width:130px; height:90px*/ }
+.latestThumb2 .latestIMG img:hover { border:1px solid #aa0000; } 
+
+.latestThumb2 li a:link, .latestThumb2 li a:visited { color:#000000;  text-decoration:none; }
+.latestThumb2 li a:hover { color:#aa0000; text-decoration:underline; }
+
+.latestComment 	{ font-size:8pt; color:#9a9a9a; }
+
+.ca_name { color:#3333ff }
+.cost { color:#aa0000 }

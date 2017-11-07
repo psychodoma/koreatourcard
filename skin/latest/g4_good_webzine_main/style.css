@@ -1,0 +1,22 @@
+.latestThumb4 { width:100%; margin:0px auto 5px; border:0px solid #dddddd; }
+
+.latestThumb4 .title  { float:left; width:160px; height:20px; font-size:10pt; font-weight: bold; color: #666666; vertical-align:middle; padding:3px; }
+.latestThumb4 .more { float:right; width:40px; height:20px; vertical-align:middle; padding:3px; }
+
+.latestThumb4 .title a:link , .latestThumb4 .title a:visited { text-decoration:none; }
+.latestThumb4 .title a:hover { text-decoration:underline; }
+
+.latestThumb4 ul	{ width:100%; margin:0; padding:3px 0 3px 0; list-style:none; }
+.latestThumb4 li { margin:5px; padding:0; }
+
+.latestThumb4 .latestIMG { margin-right:0; border:0px solid #eeeeee; }
+.latestThumb4 .latestIMG img { border:0px solid #ffffff; }
+.latestThumb4 .latestIMG img:hover { border:0px solid #aa0000; } 
+
+.latestThumb4 li a:link, .latestThumb4 li a:visited { color:#000000;  text-decoration:none; }
+.latestThumb4 li a:hover { color:#aa0000; text-decoration:underline; }
+
+.latestComment 	{ font-size:8pt; color:#9a9a9a; }
+
+.ca_name { color:#3333ff }
+.cost { color:#aa0000 }

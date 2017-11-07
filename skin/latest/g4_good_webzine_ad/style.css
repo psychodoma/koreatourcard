@@ -1,0 +1,25 @@
+/*
+// 굿빌더
+*/
+/* .latestGalAd { width:100%; margin:0px auto; border:0px solid #dddddd; background-color:#f0f0f0; } */
+.latestGalAd { width:100%; margin:0px auto; border:0px solid #dddddd; }
+
+.latestGalAd .title { width:128px; float:left; height:20px; font-size:10pt; font-weight: bold; color: #666666; vertical-align:middle; padding:3px; }
+.latestGalAd .more { width:40px; float:right; height:20px; vertical-align:middle; padding:3px; }
+
+.latestGalAd .title a:link , .latestGalAd .title a:visited { text-decoration:none; }
+.latestGalAd .title a:hover { text-decoration:underline; }
+
+.latestGalAd ul { width:100%; margin:0; padding:3px 0 3px 0; list-style:none; text-align: left; }
+.latestGalAd li { margin:3px; padding:0; }
+
+.latestGalAd li img { border:1px solid #ffffff; }
+.latestGalAd li img:hover { border:1px solid #aa0000; }
+
+.latestGalAd li a:link, .latestGalAd li a:visited { color:#6a6a6a; text-decoration:none; }
+.latestGalAd li a:hover { color:#aa0000; text-decoration:underline; }
+
+/* .latestGalAd .latestIMG { float:left; margin:0 1px 0 1px; width:182px; height:52px; overflow:hidden; border:0px solid #eeeeee; } */
+.latestGalAd .latestIMG { margin:auto; border:0px solid #eeeeee; }
+.latestGalAd .latestIMG img { border:1px solid #dddddd; }
+.latestGalAd .latestIMG img:hover { border:1px solid #aa0000; }

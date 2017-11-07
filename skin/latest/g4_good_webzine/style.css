@@ -1,0 +1,24 @@
+/*
+// 굿빌더
+*/
+/* .latestThumb { width:100%; margin:0px auto; border:0px solid #dddddd; background-color: #f0f0f0;} */
+.latestThumb { width:100%; margin:0px auto; border:0px solid #dddddd; }
+
+.latestThumb .title  { float:left; width:160px; height:20px; font-size:10pt; font-weight: bold; color: #666666; vertical-align:middle; padding:3px; }
+.latestThumb .more { float:right; width:40px; height:20px; vertical-align:middle; padding:3px; }
+
+.latestThumb .title a:link , .latestThumb .title a:visited { text-decoration:none; }
+.latestThumb .title a:hover { text-decoration:underline; }
+
+/* .latestThumb ul	{ width:100%; margin:0; padding:3px 0 3px 0; list-style:none; background-color: #ffffff; } */
+.latestThumb ul	{ width:100%; margin:0; padding:3px 0 3px 0; list-style:none; }
+.latestThumb li { margin:5px; padding:0; }
+
+.latestThumb .latestIMG { float:left; margin-right:10px; width:132px; height:92px; overflow:hidden; border:0px solid #eeeeee; }
+.latestThumb .latestIMG img { border:1px solid #dddddd; width:130px; height:90px }
+.latestThumb .latestIMG img:hover { border:1px solid #aa0000; } 
+
+.latestThumb li a:link, .latestThumb li a:visited { color:#000000;  text-decoration:none; }
+.latestThumb li a:hover { color:#aa0000; text-decoration:underline; }
+
+.latestComment 	{ font-size:8pt; color:#9a9a9a; }

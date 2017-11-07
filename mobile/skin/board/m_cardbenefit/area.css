@@ -1,0 +1,139 @@
+
+@charset "utf-8";
+
+
+.sub4_6form {padding:0px;}
+.sub4_6form_area {border-top: 0px;}
+
+.sub2_1form1 {padding: 4% 1% 2% 4%;}
+
+
+.sub2_1form1 li select {border: 1.5px solid #333; border-radius:5px; /* color: #ababab; */ font-weight: 700; }
+
+
+.search45_input {padding: 1% 1% 4% 4%; background-color: #e5e5e5; border-bottom: 1px solid #b2b2b2; margin-bottom: 15px; }
+.sub4_6form_area form fieldset ul li.search45_btn {position: absolute; top: 13px; right: 28px;}
+
+
+.sub4_6form_area form fieldset ul li.search45_input {width: 95%;}
+
+.sub45_bar {width:95%}
+
+
+.div1 {margin-bottom: 30px;}
+
+
+.sub1_3area h2 {font-size: 16px; color: #333; margin-left: 5%;}
+.sub1_3area h2>span {color: #00aee9;}
+
+
+
+
+
+
+.sub2_1form1>.select_box {margin-right: 3px;}
+
+.select_box {border: 1.5px solid #000; border-radius: 5px;} 
+
+
+
+
+.select_box .box1 {position: absolute; color: #737373; top: 21%; left: 25px; letter-spacing: 1px;}
+
+.select_box .box2 {position: absolute; color: #737373; top: 21%; left: 54%; letter-spacing: 1px;}
+.sub2_1form1 .select_box #color {opacity:0;} 
+.sub2_1form1 .select_box {background: url(http://www.koreatourcard.kr/img/sub/sub2/sub2_1/sel.jpg) 95% center no-repeat; background-color: #fff;}
+
+.sub2_1form1 li {width: 47%;}
+
+
+
+
+/* 
+.select_box>option {margin-top: 30px;} */
+
+
+
+
+.sub31_List_area {margin-top: 15px; padding: 0%; width: 100%; border-bottom: 1px solid #b1b1b1;}
+
+.sub31_List_area li {width: 100%; border-right: 0px; border-left: 0px; border-bottom: 0px; border-top: 1px solid #b1b1b1; border-radius: 0px; /* margin-bottom: -1px; border-bottom: 1px solid #b1b1b1; */ height: 130px;}
+
+
+.sub31_List_area li > a {width: 100%;float: left; padding-bottom: 30px;}
+
+
+.sub31_List_area li a .sub31_ListImg {width: 36%; float: left;padding-left: 5%; padding-right: 3%; margin-top: 18px;}
+
+
+
+.info {width: 90%; background-color: #f2f2f2; font-weight: 500;}
+
+.info {position: absolute; top: 65%; left: 5%; height: 20%; padding-top: 2.5%; font-size: 1.3em; }
+
+
+.info>img {width: 20px; margin-right: 10px; margin-top: 0px; margin-top: -3px;}
+
+.info:hover {background-color: #8dba45; color: #fff;}
+
+
+
+.sub31_List_area li .sub31_txt > p {font-size: 18px; padding-top: 30px; padding-right: 6%; font-weight: 700; padding-bottom: 40px;}
+.sub31_List_area li .sub31_txt > p:active {color: #8dba45;}
+
+.pageNum ul {text-align: center; font-size: 16px; margin-bottom: 60px;}
+.pageNum ul li {display: inline-block; margin: 0 10px;}
+
+.pageNum ul li a {color: #757575;}
+.pageNum ul li a .prev, .next {color: #000; font-weight: 700;}
+.pageNum ul li a .over {color: #000; font-weight: 700; text-decoration: underline;}
+
+
+
+
+
+
+@media screen and (max-width: 414px) {
+	.Address_D_label_jp {letter-spacing: -1.8px !important;/*  top: 18.5% !important; */}
+	/* .select_box .box2 { top: 18.5% !important;} */
+}
+
+
+
+
+@media screen and (min-width: 415px) and (max-width: 455px) {
+	.select_box .box1 {position: absolute; color: #737373; top: 23%; left: 7%; letter-spacing: 1px;}
+	.select_box .box2 {position: absolute; color: #737373; top: 23%; left: 54%; letter-spacing: 1px;}
+	.sub2_1form1 .select_box {margin-right: 1%;}
+
+	.sub4_6form_area form fieldset ul li.search45_btn {position: absolute; top: 20%; right: 7%;}
+
+	
+
+}
+
+
+
+
+@media screen and (min-width: 456px) and (max-width: 800px) {
+	.select_box .box1 {position: absolute; color: #737373; top: 24%; left: 7%; letter-spacing: 1px;}
+	.select_box .box2 {position: absolute; color: #737373; top: 24%; left: 54%; letter-spacing: 1px;}
+	.sub2_1form1 .select_box {margin-right: 2%;}
+
+	.sub4_6form_area form fieldset ul li.search45_btn {position: absolute; top: 20%; right: 7%;}
+
+
+}
+
+
+
+@media screen and (min-width: 801px)  {
+	.select_box .box1 {position: absolute; color: #737373; top: 26%; left: 7%; letter-spacing: 1px;}
+	.select_box .box2 {position: absolute; color: #737373; top: 26%; left: 54%; letter-spacing: 1px;}
+	.sub2_1form1 .select_box {margin-right: 2%;}
+
+	.sub4_6form_area form fieldset ul li.search45_btn {position: absolute; top: 20%; right: 7%;}
+
+	
+
+}
