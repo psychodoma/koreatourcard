@@ -24,6 +24,19 @@ $action_url = "/bbs/search_ktc.php?page=1&card_page=1";
 
 
 
+<<<<<<< HEAD
+=======
+
+<!-- 이풍현 -->
+<!-- 이풍현 -->
+
+<!-- 모루컴퍼니 -->
+
+<!-- 김지환2 -->
+
+
+
+>>>>>>> b9aba2b55cef5c19c1a48b7ae160b6e48d1fda51
 <title>Error 404 Not Found</title>
 </head>
 <body>
