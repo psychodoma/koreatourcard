@@ -23,6 +23,8 @@ $action_url = "/bbs/search_ktc.php?page=1&card_page=1";
 }?>
 
 
+<!-- 지환 -->
+
 
 <!-- 이풍현 -->
 <!-- 이풍현 -->
