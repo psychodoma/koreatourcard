@@ -17,10 +17,11 @@ $mobile = !!(FALSE !== strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'mobile')
 
 <?php if ($mobile) {
 $action_url = "/bbs/search.php?page=1&card_page=1";
-}else{ 
+}else{
 
 $action_url = "/bbs/search_ktc.php?page=1&card_page=1";
 }?>
+
 
 
 
