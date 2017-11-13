@@ -23,7 +23,7 @@ $action_url = "/bbs/search_ktc.php?page=1&card_page=1";
 }?>
 
 
-
+<!-- 안녕 -->
 
 
 <title>Error 404 Not Found</title>
