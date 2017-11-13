@@ -22,14 +22,16 @@ $action_url = "/bbs/search.php?page=1&card_page=1";
 $action_url = "/bbs/search_ktc.php?page=1&card_page=1";
 }?>
 
+<!-- 김지환 -->
 
-
+<!-- 이풍현 -->
+<!-- 이풍현 -->
 
 
 <title>Error 404 Not Found</title>
 </head>
 <body>
-
+<!-- 테스트 -->
 <div class="error_wrap">
 	<div class="error_container">
 		<div class="error_head">
