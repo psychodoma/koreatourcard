@@ -24,10 +24,18 @@ $action_url = "/bbs/search_ktc.php?page=1&card_page=1";
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 <title>Error 404 Not Found</title>
 </head>
 <body>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 
 <div class="error_wrap">
 	<div class="error_container">
