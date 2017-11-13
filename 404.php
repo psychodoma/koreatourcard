@@ -23,16 +23,16 @@ $action_url = "/bbs/search_ktc.php?page=1&card_page=1";
 }?>
 
 
-<!-- 지환 -->
-
 
 <!-- 이풍현 -->
 <!-- 이풍현 -->
 
-
+<!-- 모루컴퍼니 -->
 <title>Error 404 Not Found</title>
 </head>
 <body>
+
+<!-- 김지환 테스트 입니다 -->
 
 <div class="error_wrap">
 	<div class="error_container">
