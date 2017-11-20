@@ -17,7 +17,7 @@ if( !$today ){
     $today = date("Y-m");
     $fetivaltitle = explode('-',$today);
 }else{
-    $fetivaltitle = explode('-',$today); 
+    $fetivaltitle = explode('-',$today);
     if($cnt == "up"){
         $fetivaltitle[1] = $fetivaltitle[1]+1;
 
@@ -28,7 +28,7 @@ if( !$today ){
             $fetivaltitle[0] =  $fetivaltitle[0] + 1;
         }
     }else if($cnt == "down"){
-        $fetivaltitle[1] = $fetivaltitle[1]-1; 
+        $fetivaltitle[1] = $fetivaltitle[1]-1;
         if( $fetivaltitle[1] < 10 ){
             $fetivaltitle[1] = "0".$fetivaltitle[1];
         }
@@ -65,11 +65,11 @@ $total_page  = ceil($list_cnt['cnt'] / $page_rows);
                             <input type="hidden" name="sca" value="<?php echo $sca ?>">
                             <input type="hidden" name="me_code" value="<?php echo $me_code ?>">
                             <input type="hidden" name="info" value="<?php echo $info ?>">
-                            
+
 							<input type='hidden' name='lang' value='<?=lang_url($_SESSION['lang'])?>' >
 
                             <input type="hidden" name="today" value="<?php echo $today ?>">
-                            <input type="hidden" name="sop" value="and">  
+                            <input type="hidden" name="sop" value="and">
 							<label for="sch_stx" class="sound_only hide">검색어<strong class="sound_only"> 필수</strong></label>
 
 							<ul>
@@ -82,7 +82,7 @@ $total_page  = ceil($list_cnt['cnt'] / $page_rows);
 									<input type="image" class="syb21_loginbtn" id="sch_submit" src="/img/mobile/main/search.png" alt="검색" title="검색" />
 								</li>
 							</ul>
-					   
+
 						</fieldset>
 					</form>
 
@@ -166,7 +166,19 @@ $total_page  = ceil($list_cnt['cnt'] / $page_rows);
                     ?>
 
                         <li>
-                            <a href="<?=$row['wr_link1']?>" target='_blank' style='text-decoration:none;'>
+
+                            <?if(!$row['wr_link_'.$_SESSION['lang']]){?>
+                              <?if($row['wr_link_en_US']){?>
+                                <a href='<?=$row['wr_link_en_US']?>' target='_blank' style='text-decoration:none;'>
+                              <?}else{?>
+                                <a href='<?=$row['wr_link_ko_KR']?>' target='_blank' style='text-decoration:none;'>
+                              <?}?>
+                            <?}else{?>
+                                <a href='<?=$row['wr_link_'.$_SESSION['lang']]?>' target='_blank' style='text-decoration:none;'>
+                            <?}?>
+
+
+
                                 <div class="sub43_listArea">
                                     <p class="sub46_list_date calendar_txt2">
                                         <?
@@ -181,13 +193,13 @@ $total_page  = ceil($list_cnt['cnt'] / $page_rows);
                                             echo substr($row['wr_1'],0,4);
                                             echo ". ";
                                             echo substr($row['wr_1'],4,2);
-                                            echo ". "; 
+                                            echo ". ";
                                             echo substr($row['wr_1'],6,2);
-                                            echo "&nbsp;&nbsp;~&nbsp;&nbsp;"; 
+                                            echo "&nbsp;&nbsp;~&nbsp;&nbsp;";
                                             echo substr($row['wr_2'],0,4);
                                             echo ". ";
                                             echo substr($row['wr_2'],4,2);
-                                            echo ". "; 
+                                            echo ". ";
                                             echo substr($row['wr_2'],6,2);
                                         ?>
                                     </p>
@@ -200,7 +212,7 @@ $total_page  = ceil($list_cnt['cnt'] / $page_rows);
                                             <?=_t($row['wr_4'])?>
                                         <?}?>
                                     </p>
-                                    
+
                                 </div>
                             </a>
                         </li>
@@ -229,14 +241,14 @@ $total_page  = ceil($list_cnt['cnt'] / $page_rows);
                     <?}?>
 
 
-                </ul>	
+                </ul>
             <?}else{?>
                 <?if( $stx ){?>
                     <div style="text-align:center; font-size:15px; color:#868686; padding:10% 0;"><?=_t('검색 결과가 없습니다.')?></div>
                 <?}else{?>
                     <div style="text-align:center; font-size:15px; color:#868686; padding:10% 0;"><?=_t('게시물이 없습니다.')?></div>
                 <?}?>
-            <?}?>	
+            <?}?>
 
 
 		</div><!-- sub3_1area 끝 -->
@@ -272,7 +284,7 @@ $(function(){
                 var page_row = parseInt($('.remember_page').attr('valRow'));
                 $('.sub43_list').append(data);
                 $('.remember_page').attr('valPage',page_num);
-                
+
             }
         })
     })

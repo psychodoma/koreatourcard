@@ -16,7 +16,7 @@ if( !$today ){
     $today = date("Y-m");
     $fetivaltitle = explode('-',$today);
 }else{
-    $fetivaltitle = explode('-',$today); 
+    $fetivaltitle = explode('-',$today);
     if($cnt == "up"){
         $fetivaltitle[1] = $fetivaltitle[1]+1;
 
@@ -27,7 +27,7 @@ if( !$today ){
             $fetivaltitle[0] =  $fetivaltitle[0] + 1;
         }
     }else if($cnt == "down"){
-        $fetivaltitle[1] = $fetivaltitle[1]-1; 
+        $fetivaltitle[1] = $fetivaltitle[1]-1;
         if( $fetivaltitle[1] < 10 ){
             $fetivaltitle[1] = "0".$fetivaltitle[1];
         }
@@ -76,7 +76,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
                 <input type="hidden" name="info" value="<?php echo $info ?>">
                 <input type="hidden" name="num" value="<?php echo $num ?>">
                 <input type="hidden" name="today" value="<?php echo $today ?>">
-                <input type="hidden" name="sop" value="and">  
+                <input type="hidden" name="sop" value="and">
 				<input type='hidden' name='lang' value='<?=lang_url($_SESSION['lang'])?>'
                 </ul>
             </fieldset>
@@ -121,7 +121,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         <li style="width:33%;"><a class="tab_link <?if($sca == "공연&전시") echo 'active';?>" href="/bbs/board.php?bo_table=festival&info=info&me_code=40&num=3&sca=<?=urlencode('공연&전시')?><?=lang_url_a($_SESSION['lang'])?>" ids="1"><?=_t('공연/전시')?></a></li>
     </ul>
 </div>
- 
+
 
 
 <div class="sub4_3calendar">
@@ -164,24 +164,32 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
                                         echo substr($row['wr_1'],0,4);
                                         echo ". ";
                                         echo substr($row['wr_1'],4,2);
-                                        echo ". "; 
+                                        echo ". ";
                                         echo substr($row['wr_1'],6,2);
-                                        echo "&nbsp;&nbsp;~&nbsp;&nbsp;"; 
+                                        echo "&nbsp;&nbsp;~&nbsp;&nbsp;";
                                         echo substr($row['wr_2'],0,4);
                                         echo ". ";
                                         echo substr($row['wr_2'],4,2);
-                                        echo ". "; 
+                                        echo ". ";
                                         echo substr($row['wr_2'],6,2);
                                     ?>
                                 <!--</a>-->
                             </td>
-                            
+
                             <td align="center" >
-                                <a href='<?=$row['wr_link1']?>' target='_blank' style="color:#505050; font-weight: 600;">
-                                    <?=$str_subject?>
+                                <?if(!$row['wr_link_'.$_SESSION['lang']]){?>
+                                  <?if($row['wr_link_en_US']){?>
+                                    <a href='<?=$row['wr_link_en_US']?>' target='_blank' style="color:#505050; font-weight: 600;">
+                                  <?}else{?>
+                                    <a href='<?=$row['wr_link_ko_KR']?>' target='_blank' style="color:#505050; font-weight: 600;">
+                                  <?}?>
+                                <?}else{?>
+                                    <a href='<?=$row['wr_link_'.$_SESSION['lang']]?>' target='_blank' style="color:#505050; font-weight: 600;">
+                                <?}?>
+                                  <?=$str_subject?>
                                 </a>
                             </td>
-                            
+
                             <td align="center">
 								<?if($row['wr_3']){?>
 									<?=_t($row['wr_3'])?>&nbsp;
@@ -203,12 +211,12 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         <?}else{?>
          <p class="sub5_search_false"><?=_t('게시물이 없습니다.')?></p>
          <?}?>
-    <?}?>		
+    <?}?>
 
 
-<?php 
+<?php
 $write_pages = get_paging_ktc($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&info=".$info,"&me_code=".$me_code."&num=".$num."&today=".$today.lang_url_a($_SESSION['lang']));
-echo $write_pages; 
+echo $write_pages;
 ?>
 
 </div>

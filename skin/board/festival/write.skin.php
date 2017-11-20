@@ -5,9 +5,9 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0);
 $array_lang = array('한글','영어','일본','간체','번체');
 ?>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <section id="bo_w">
     <h2 id="container_title"><?php echo $g5['title'] ?></h2>
 
@@ -109,14 +109,14 @@ $array_lang = array('한글','영어','일본','간체','번체');
 
         <tr>
             <th scope="row"><label for="wr_subject">일정 기간<strong class="sound_only">필수</strong></label></th>
-            <td class="festivalWrrite_date">  
-                <input type="text" id="testDatepicker" name='wr_1' value='<?=$write['wr_1']?>' > ~ <input type="text" id="testDatepicker1" name='wr_2' value='<?=$write['wr_2']?>' > 
+            <td class="festivalWrrite_date">
+                <input type="text" id="testDatepicker" name='wr_1' value='<?=$write['wr_1']?>' > ~ <input type="text" id="testDatepicker1" name='wr_2' value='<?=$write['wr_2']?>' >
             </td>
         </tr>
 
         <tr>
             <th scope="row"><label for="wr_subject">제목<strong class="sound_only">필수</strong></label></th>
-            <td class="festivalWrrite_date">  
+            <td class="festivalWrrite_date">
                 <input type="text" name='wr_subject'  value='<?=$write['wr_subject']?>' style='width:200px;' size="255" maxlength="255"/>
                 <input type="text" name='wr_subject_en_US'  value="<?=$write['wr_subject_en_US']?>"  style='width:200px;' size="255" maxlength="255" />
                 <input type="text" name='wr_subject_ja_JP'  value='<?=$write['wr_subject_ja_JP']?>'  style='width:200px;' size="255" maxlength="255" />
@@ -127,27 +127,27 @@ $array_lang = array('한글','영어','일본','간체','번체');
 
         <tr>
             <th scope="row"><label for="wr_subject">지역</strong></label></th>
-            <td class="festivalWrrite_date">  
+            <td class="festivalWrrite_date">
 
                 <select class="Address_D" name='wr_3' value='<?=$write['wr_3']?>' id="color" title="select color">
                     <option class='base_select' value=''>선택하세요</option>
-                    <option value='서울특별시' <?if($write['wr_3'] == '서울특별시') echo "selected"; ?> >서울특별시</option> 
-                    <option value='광주광역시' <?if($write['wr_3'] == '광주광역시') echo "selected"; ?> >광주광역시</option> 
-                    <option value='대구광역시' <?if($write['wr_3'] == '대구광역시') echo "selected"; ?> >대구광역시</option> 
-                    <option value='대전광역시' <?if($write['wr_3'] == '대전광역시') echo "selected"; ?> >대전광역시</option> 
-                    <option value='부산광역시' <?if($write['wr_3'] == '부산광역시') echo "selected"; ?> >부산광역시</option> 
-                    <option value='울산광역시' <?if($write['wr_3'] == '울산광역시') echo "selected"; ?> >울산광역시</option> 
-                    <option value='인천광역시' <?if($write['wr_3'] == '인천광역시') echo "selected"; ?> >인천광역시</option> 
-                    <option value='세종특별자치시' <?if($write['wr_3'] == '세종특별자치시') echo "selected"; ?> >세종특별자치시</option> 
-                    <option value='강원도' <?if($write['wr_3'] == '강원도') echo "selected"; ?> >강원도</option> 
-                    <option value='경기도' <?if($write['wr_3'] == '경기도') echo "selected"; ?> >경기도</option> 
-                    <option value='경상남도' <?if($write['wr_3'] == '경상남도') echo "selected"; ?> >경상남도</option> 
-                    <option value='경상북도' <?if($write['wr_3'] == '경상북도') echo "selected"; ?> >경상북도</option> 
-                    <option value='전라남도' <?if($write['wr_3'] == '전라남도') echo "selected"; ?> >전라남도</option> 
-                    <option value='전라북도' <?if($write['wr_3'] == '전라북도') echo "selected"; ?> >전라북도</option> 
-                    <option value='제주특별자치도' <?if($write['wr_3'] == '제주특별자치도') echo "selected"; ?> >제주특별자치도</option> 
-                    <option value='충청남도' <?if($write['wr_3'] == '충청남도') echo "selected"; ?> >충청남도</option> 
-                    <option value='충청북도' <?if($write['wr_3'] == '충청북도') echo "selected"; ?> >충청북도</option> 
+                    <option value='서울특별시' <?if($write['wr_3'] == '서울특별시') echo "selected"; ?> >서울특별시</option>
+                    <option value='광주광역시' <?if($write['wr_3'] == '광주광역시') echo "selected"; ?> >광주광역시</option>
+                    <option value='대구광역시' <?if($write['wr_3'] == '대구광역시') echo "selected"; ?> >대구광역시</option>
+                    <option value='대전광역시' <?if($write['wr_3'] == '대전광역시') echo "selected"; ?> >대전광역시</option>
+                    <option value='부산광역시' <?if($write['wr_3'] == '부산광역시') echo "selected"; ?> >부산광역시</option>
+                    <option value='울산광역시' <?if($write['wr_3'] == '울산광역시') echo "selected"; ?> >울산광역시</option>
+                    <option value='인천광역시' <?if($write['wr_3'] == '인천광역시') echo "selected"; ?> >인천광역시</option>
+                    <option value='세종특별자치시' <?if($write['wr_3'] == '세종특별자치시') echo "selected"; ?> >세종특별자치시</option>
+                    <option value='강원도' <?if($write['wr_3'] == '강원도') echo "selected"; ?> >강원도</option>
+                    <option value='경기도' <?if($write['wr_3'] == '경기도') echo "selected"; ?> >경기도</option>
+                    <option value='경상남도' <?if($write['wr_3'] == '경상남도') echo "selected"; ?> >경상남도</option>
+                    <option value='경상북도' <?if($write['wr_3'] == '경상북도') echo "selected"; ?> >경상북도</option>
+                    <option value='전라남도' <?if($write['wr_3'] == '전라남도') echo "selected"; ?> >전라남도</option>
+                    <option value='전라북도' <?if($write['wr_3'] == '전라북도') echo "selected"; ?> >전라북도</option>
+                    <option value='제주특별자치도' <?if($write['wr_3'] == '제주특별자치도') echo "selected"; ?> >제주특별자치도</option>
+                    <option value='충청남도' <?if($write['wr_3'] == '충청남도') echo "selected"; ?> >충청남도</option>
+                    <option value='충청북도' <?if($write['wr_3'] == '충청북도') echo "selected"; ?> >충청북도</option>
                 </select>
 
                 <input type="text"  name='wr_4' value='<?=$write['wr_4']?>' >
@@ -158,7 +158,7 @@ $array_lang = array('한글','영어','일본','간체','번체');
         <tr>
             <th scope="row"><label for="wr_content">내용<strong class="sound_only">필수</strong></label></th>
             <td class="wr_content">
-                
+
                 <?php if($write_min || $write_max) { ?>
                 <!-- 최소/최대 글자 수 사용 시 -->
                 <p id="char_count_desc">이 게시판은 최소 <strong><?php echo $write_min; ?></strong>글자 이상, 최대 <strong><?php echo $write_max; ?></strong>글자 이하까지 글을 쓰실 수 있습니다.</p>
@@ -215,7 +215,7 @@ $array_lang = array('한글','영어','일본','간체','번체');
                 <?php if($write_min || $write_max) { ?>
                 <!-- 최소/최대 글자 수 사용 시 -->
                 <div id="char_count_wrap"><span id="char_count"></span>글자</div>
-                <?php } ?>               
+                <?php } ?>
 
 
             </td>
@@ -232,12 +232,31 @@ $array_lang = array('한글','영어','일본','간체','번체');
 
 
 
-        <?php for ($i=1; $is_link && $i<=1; $i++) { ?>
+
         <tr>
-            <th scope="row"><label for="wr_link<?php echo $i ?>">링크 #<?php echo $i ?></label></th>
-            <td><input type="text" name="wr_link<?php echo $i ?>" value="<?php if($w=="u"){echo$write['wr_link'.$i];} ?>" id="wr_link<?php echo $i ?>" class="frm_input" size="50"></td>
+            <th scope="row"><label for="wr_link_ko_KR">링크 한</label></th>
+            <td><input type="text" name="wr_link_ko_KR" value="<?=$write['wr_link_ko_KR']?>" id="wr_link_ko_KR" class="frm_input" size="120"></td>
         </tr>
-        <?php } ?>
+
+        <tr>
+            <th scope="row"><label for="wr_link_en_US">링크 영</label></th>
+            <td><input type="text" name="wr_link_en_US" value="<?=$write['wr_link_en_US']?>" id="wr_link_en_US" class="frm_input" size="120"></td>
+        </tr>
+
+        <tr>
+            <th scope="row"><label for="wr_link_ja_JP">링크 일</label></th>
+            <td><input type="text" name="wr_link_ja_JP" value="<?=$write['wr_link_ja_JP']?>" id="wr_link_ja_JP" class="frm_input" size="120"></td>
+        </tr>
+
+        <tr>
+            <th scope="row"><label for="wr_link_zh_CN">링크 간</label></th>
+            <td><input type="text" name="wr_link_zh_CN" value="<?=$write['wr_link_zh_CN']?>" id="wr_link_zh_CN" class="frm_input" size="120"></td>
+        </tr>
+
+        <tr>
+            <th scope="row"><label for="wr_link_zh_TW">링크 번</label></th>
+            <td><input type="text" name="wr_link_zh_TW" value="<?=$write['wr_link_zh_TW']?>" id="wr_link_zh_TW" class="frm_input" size="120"></td>
+        </tr>
 
         <!--<?php for ($i=0; $is_file && $i<$file_count; $i++) { ?>
         <tr>
@@ -286,7 +305,7 @@ $array_lang = array('한글','영어','일본','간체','번체');
     $( "#testDatepicker1" ).datepicker({
         dateFormat: "yymmdd"
     });
-    
+
 
     <?php if($write_min || $write_max) { ?>
     // 글자수 제한
@@ -378,5 +397,3 @@ $array_lang = array('한글','영어','일본','간체','번체');
     </script>
 </section>
 <!-- } 게시물 작성/수정 끝 -->
-
-

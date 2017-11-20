@@ -242,7 +242,7 @@ if ($w == '' || $w == 'r') {
 
     $wr_sub = explode('/',$wr_subject);
 
-    
+
 
 
     $fetivaltitle = explode('/',$wr_subject);
@@ -291,7 +291,12 @@ if ($w == '' || $w == 'r') {
                      wr_7 = '$wr_7',
                      wr_8 = '$wr_8',
                      wr_9 = '$wr_9',
-                     wr_10 = '$wr_10' ";
+                     wr_10 = '$wr_10',
+                     wr_link_ko_KR = '$wr_link_ko_KR',
+                     wr_link_en_US = '$wr_link_en_US',
+                     wr_link_ja_JP = '$wr_link_ja_JP',
+                     wr_link_zh_CN = '$wr_link_zh_CN',
+                     wr_link_zh_TW = '$wr_link_zh_TW'";
 
 
     sql_query($sql);
@@ -419,10 +424,15 @@ if ($w == '' || $w == 'r') {
                      wr_7 = '{$wr_7}',
                      wr_8 = '{$wr_8}',
                      wr_9 = '{$wr_9}',
-                     wr_10= '{$wr_10}'";
+                     wr_10= '{$wr_10}',
+                     wr_link_ko_KR = '{$wr_link_ko_KR}',
+                     wr_link_en_US = '{$wr_link_en_US}',
+                     wr_link_ja_JP = '{$wr_link_ja_JP}',
+                     wr_link_zh_CN = '{$wr_link_zh_CN}',
+                     wr_link_zh_TW = '{$wr_link_zh_TW}'";
 
                     if($wr_url){    //allshop 이동 주소 때문에 추가
-                        $sql .= " , wr_url = '".$wr_url."' "; 
+                        $sql .= " , wr_url = '".$wr_url."' ";
                     }
 
             $sql .= "{$sql_ip}
@@ -765,4 +775,4 @@ delete_cache_latest($bo_table);
 if ($file_upload_msg)
     alert($file_upload_msg, G5_ADMIN_HTTP_BBS_URL.'/board.php?bo_table='.$bo_table.'&amp;page='.$page.$qstr);
 else
-    goto_url(G5_ADMIN_HTTP_BBS_URL.'/board.php?bo_table='.$bo_table.'&amp;'.$qstr); 
+    goto_url(G5_ADMIN_HTTP_BBS_URL.'/board.php?bo_table='.$bo_table.'&amp;'.$qstr);
