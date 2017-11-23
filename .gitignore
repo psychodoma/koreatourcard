@@ -18,6 +18,9 @@ $RECYCLE.BIN/
 *.jpg
 *.gif
 
+*.sql
+*.dump
+
 .ftpconfig
 
 **/data
