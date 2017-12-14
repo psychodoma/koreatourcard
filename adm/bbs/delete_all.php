@@ -29,6 +29,8 @@ for ($i=$chk_count-1; $i>=0; $i--)
 {
     $write = sql_fetch(" select * from $write_table where wr_id = '$tmp_array[$i]' ");
 
+
+
     if ($is_admin == 'super') // 최고관리자 통과
         ;
     else if ($is_admin == 'group') // 그룹관리자
@@ -70,12 +72,15 @@ for ($i=$chk_count-1; $i>=0; $i--)
     if ($len < 0) $len = 0;
     $reply = substr($write['wr_reply'], 0, $len);
 
+
     // 원글만 구한다.
     $sql = " select count(*) as cnt from $write_table
                 where wr_reply like '$reply%'
                 and wr_id <> '{$write['wr_id']}'
                 and wr_num = '{$write['wr_num']}'
                 and wr_is_comment = 0 ";
+
+
     $row = sql_fetch($sql);
     if ($row['cnt'])
             continue;
@@ -84,6 +89,8 @@ for ($i=$chk_count-1; $i>=0; $i--)
     //$sql = " select wr_id, mb_id, wr_comment from {$write_table} where wr_parent = '{$write[wr_id]}' order by wr_id ";
     $sql = " select wr_id, mb_id, wr_is_comment, wr_content from $write_table where wr_parent = '{$write['wr_id']}' order by wr_id ";
     $result = sql_query($sql);
+
+
     while ($row = sql_fetch_array($result))
     {
         // 원글이라면

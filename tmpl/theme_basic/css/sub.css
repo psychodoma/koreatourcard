@@ -201,7 +201,7 @@
 	background-image:url(/img/sub/subHead_icon.jpg);
 	background-repeat:no-repeat;
 	background-position:0px 5px;
-	max-width:320px; 
+	max-width:320px;
 }
 .sub_titleHead ul li:first-child{background:none;}
 .sub_titleHead ul li a{color: #737373; text-decoration:none;}
@@ -698,7 +698,7 @@ div#select_box select#color {
 	width: 130px;
     height: 43px;
 	padding-right: 20px;
-    background-color: #415d72; 
+    background-color: #415d72;
     border: 0;
     border-radius: 6px;
     font-size: 14px;
@@ -1008,7 +1008,7 @@ div#select_box select#color {
 }
 
 .sub3_1List li .effect-bubba .figcap::before {
-	
+
 }
 
 
@@ -1136,19 +1136,19 @@ div#select_box select#color {
 .sub3_note .sub3_note_area .sub3_note_txt{
 	float: left;
 	width:80%;
-} 
+}
 .sub3_note .sub3_note_area .sub3_note_txt h4{
 	font-size: 19px;
     font-weight: bold;
     color: #4e4e4e;
     margin-bottom: 10px;
-} 
-.sub3_note .sub3_note_area .sub3_note_txt ul{} 
+}
+.sub3_note .sub3_note_area .sub3_note_txt ul{}
 .sub3_note .sub3_note_area .sub3_note_txt ul li{
 	font-size: 13px;
     color: #5f5f5f;
 	line-height:24px;
-} 
+}
 
 .sub3_note_txt_guide{
 	font-size: 13px;
@@ -1213,7 +1213,7 @@ div#select_box select#color {
 }
 .view2_txtArea ul{
 	font-size: 14px;
-    color: #676767; 
+    color: #676767;
 }
 .view2_txtArea ul li{
 	line-height: 24px;
@@ -1272,7 +1272,7 @@ div#select_box select#color {
 	margin-right:5px;
 }
 .view2_txtArea a.sub3_1view2_btn3{
-	background:url('/img/sub/sub3/sub3_1/homepage_ico.png') #415d72 no-repeat 25px 50% ; 
+	background:url('/img/sub/sub3/sub3_1/homepage_ico.png') #415d72 no-repeat 25px 50% ;
 	border-radius:5px;
 	margin-right:5px;
 	padding-left:20px;
@@ -1385,7 +1385,7 @@ div#select_box select#color {
 	display:block;
 	margin:0 auto;
 	width:49px;
-	height:50px; 
+	height:50px;
 	background-repeat:no-repeat;
 	background-position:center bottom;
 }
@@ -1452,7 +1452,7 @@ div#select_box select#color {
 
 
 .sub3_note_icon{width:86px;text-align:center;}
-.sub3_note_area:first-Child{margin-bottom:40px;padding-bottom:40px;border-bottom:0.1px dashed #bec3c7}
+.sub3_note_area:first-Child{margin-bottom:40px;padding-bottom:40px;border-bottom:1px dashed #bec3c7}
 
 .travel_info{margin-bottom:66px;}
 .travel_info ul{
@@ -1582,7 +1582,7 @@ span.btn_bull{
 	text-align: left;
     width: 19%;
 }
-.view2_txtArea2_us li .Area2_num{ 
+.view2_txtArea2_us li .Area2_num{
 	width: 430px;
 }
 
@@ -1726,7 +1726,7 @@ span.btn_bull{
 .sub32_table .sub32_tb_logo p{
 	width:110px;
 	height:27px;
-	/* background-image: url(/img/sub/sub3/sub3_2/sub31_btn.jpg); 
+	/* background-image: url(/img/sub/sub3/sub3_2/sub31_btn.jpg);
     background-repeat: no-repeat;
     background-position: 0px 0px;*/
 	margin: 0 auto;
@@ -1737,7 +1737,7 @@ span.btn_bull{
 .sub32_table .sub32_tb_logo p:hover {
 	background-color: #00aee9;
 	border:1px solid #00aee9;
-	
+
 	}
 
 .sub32_table .sub32_tb_logo p a{
@@ -1960,14 +1960,14 @@ span.btn_bull{
 }
 
 .sub4_1List_D li .grid .effect-bubba .figcap::before {
-	
+
 }
 
 
 .sub4_1List_D li .grid .effect-bubba .figcap.bg1::before{
 	background:none;
 	border: 12px solid rgba(88, 203, 243, 0.44);
-}	
+}
 
 
 
@@ -2155,17 +2155,17 @@ span.btn_bull{
 }
 
 .sub4_1List li .grid .effect-bubba .figcap::before {
-	
+
 }
 
 
 .sub4_1List li .grid .effect-bubba .figcap.bg1::before{
 	background:none;
 	background-color: rgba(0, 0, 0, 0.76);
-}	
+}
 
 .sub4_1List li .grid .effect-bubba .figcap:hover .sub_41Title{
-	opacity:0;	
+	opacity:0;
 	-webkit-transform: translate3d(0,35px,0);
 	transform: translate3d(0,35px,0);
 }
@@ -2301,7 +2301,7 @@ span.btn_bull{
 .sub4_thum_slide a:hover div
 {
 	opacity: 1;
-	
+
 }
 .sub4_thum_slide a:hover div{
 	border: 10px solid rgba(0, 174, 233, 0.44);
@@ -2349,7 +2349,7 @@ span.btn_bull{
 
 .sub4_1info_top{}
 .sub4_1info_top p{
-    font-size: 15px; 
+    font-size: 15px;
 }
 .sub4_1info_top .sub4_1info_top_txt{
 	font-size: 15px;
@@ -2559,7 +2559,7 @@ span.btn_bull{
 	padding-top:40px;
 }
 .sub4_3calendar_title{
-	float:left; 
+	float:left;
 	width:34%;
 	text-align:center;
 	font-size:20px;
@@ -2643,7 +2643,7 @@ span.btn_bull{
 	text-align:center;
 }
 .sub4_5form form{
-	display: inline-block;	
+	display: inline-block;
 }
 .sub4_5form form fieldset{
 	display: inline-block;
@@ -2792,7 +2792,7 @@ span.btn_bull{
 /* sub4_6 공지사항 게시판 */
 .sub4_6form_area{}
 .sub4_6form_area form{}
-.sub4_6form_area form fieldset{	
+.sub4_6form_area form fieldset{
 	text-align: right;
     padding: 60px 0 10px 0;
 }
@@ -2853,7 +2853,7 @@ span.btn_bull{
 .sub4_6table td{
 	border-bottom: 1px solid #ccc;
     padding: 20px 0;
-	color: #737373; 
+	color: #737373;
 }
 .sub4_6table td a{
 	color: #737373;
@@ -2930,7 +2930,7 @@ span.btn_bull{
 	text-align:center;
 }
 .sub5form form{
-	display: inline-block;	
+	display: inline-block;
 }
 .sub5form form fieldset{
 	display: inline-block;
@@ -3131,7 +3131,7 @@ span.btn_bull{
 	border:0;
 }
 .sub4_6table_view td.fileDown #bo_v_file{}
-.sub4_6table_view td.fileDown #bo_v_file a{	
+.sub4_6table_view td.fileDown #bo_v_file a{
 	padding: 2px 0 0px 0;
 }
 
@@ -3293,5 +3293,13 @@ span.btn_bull{
 }
 
 
-
-
+.s31_hol a{
+	color:#676767;
+	width:auto;
+	height:auto;
+	line-height: 0;
+	vertical-align: middle !important;
+	padding:0;
+	font-size:14px;
+	padding-left:5px;
+}

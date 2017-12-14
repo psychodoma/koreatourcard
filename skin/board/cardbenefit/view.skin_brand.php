@@ -23,13 +23,13 @@ $v_img_count = count($view['file']);
 if($_SESSION['lang'] == 'ko_KR'){
    $hl = "ko";
 }else if($_SESSION['lang'] == 'en_US'){
-   $hl = "en"; 
+   $hl = "en";
 }else if($_SESSION['lang'] == 'ja_JP'){
-   $hl = "ja";  
+   $hl = "ja";
 }else if($_SESSION['lang'] == 'zh_CN'){
-   $hl = "zh-CN";  
+   $hl = "zh-CN";
 }else if($_SESSION['lang'] == 'zh_TW'){
-   $hl = "zh-TW";  
+   $hl = "zh-TW";
 }
 
 //$me_sql = "select * from g5_write_cardbenefit"
@@ -52,16 +52,15 @@ $waring_txt = explode("\r", $waring_txt );
 $content_txt = explode("\r", $content_txt );
 //$guide_txt = explode("\r", $guide_txt );
 
-if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){ 
+if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 	//print_R($board);
 	//print_r($view);
 	//echo caNameShift($view['ca_name']);
 }
-
-
-
-
 ?>
+
+
+
 <script>
     $(function(){
         $('.topImg img').css('width','976px');
@@ -77,7 +76,7 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 	<h3>
 		<a href="" target="_blank" class="view_image"><img src="" alt="프리미엄쿠폰북 1부 증정(점 내 조건부 할인 혜택 모음)       "  width="150" height="49" ></a>
 	</h3>
-	<p>프리미엄쿠폰북 1부 증정(점 내 조건부 할인 혜택 모음)                                   
+	<p>프리미엄쿠폰북 1부 증정(점 내 조건부 할인 혜택 모음)
 </li>
 </ul>
 -->
@@ -86,7 +85,7 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 <div class='map_info' valTable='<?=$board['bo_table']?>'  valInfoName='<?=$view['wr_subject_'.$_SESSION['lang']]?>'  valInfoLat='<?=$view['wr_lat']?>' valInfoLng='<?=$view['wr_lng']?>'></div>
 
 <div class="sub2_2center">
-	
+
     <div class="sub3_1view">
 
         <?if($view['file'][0]['view']) {?>
@@ -98,14 +97,14 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 
             <div class="topImg" style='border: 0; '>
                 <?if($v_img_count) {
-                    for ($i=0; $i<1; $i++) {  
+                    for ($i=0; $i<1; $i++) {
                         echo get_view_thumbnail($view['file'][$i]['view'],"976px","300px");
                     }
                 }?>
             </div>
         <?}else{?>
             <div class="topImg">
-				
+
                 <?if($v_img_count) {
                     for ($i=0; $i<1; $i++) {
                         echo "<img src='/img/default/ktc_cardbenefit_view.png' style='width:976px; height:300px;' >";
@@ -115,9 +114,9 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
         <?}?>
 
         <div class="topTxt" style="padding-top:30px;">
-			 
-			
-			
+
+
+
 			<div style="display:block;clear:both;">
             <h3 onclick='return false;'>
                 <?if($v_img_count) {
@@ -157,7 +156,7 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 
 
                     }
-                }?>  
+                }?>
             </h3>
 			</div>
             <p>
@@ -196,9 +195,9 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 
                                 <dd>
 									<?if($_SESSION['lang'] == 'ko_KR'){?>
-										- <?=get_textarea_br($view['file'][$i]['bf_content'])?> 
+										- <?=get_textarea_br($view['file'][$i]['bf_content'])?>
 									<?}else{?>
-										- <?=get_textarea_br($view['file'][$i]['bf_content_'.$_SESSION['lang']])?> 
+										- <?=get_textarea_br($view['file'][$i]['bf_content_'.$_SESSION['lang']])?>
 									<?}?>
 								</dd>
                             </li>
@@ -210,14 +209,14 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 		<!-- 이용조건 & 유의사항 안내-->
 		<h4 class="subtitle"><?=_t('이용조건 안내 & 유의사항')?></h4>
             <div class="sub3_note">
-				
+
 				<?if($view['wr_guide']){?>
 				<div class="sub3_note_area">
                     <p class="sub3_note_icon"><img src="/img/sub/sub3/sub3_2/checked_icon.png" alt=""/></p>
 
                     <div class="sub3_note_txt sub3_note_txt_guide">
                         <h4><?=_t('혜택 적용 안내')?></h4>
- 
+
 							<p>
 							<?if($_SESSION['lang'] == "ko_KR"){?>
 								<?=$view['wr_guide']?>
@@ -225,7 +224,7 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 								<?=$view['wr_guide_'.$_SESSION['lang']]?>
 							<?}?>
 							</p>
-							
+
                     </div>
 				</div>
 				<?}?>
@@ -255,52 +254,52 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 						<li class="info1">
 							<a href="/bbs/board.php?bo_table=tourinfo&sca=테마여행%20추천코스&info=event&me_code=40&num=3<?=lang_url_a($_SESSION['lang'])?>">
 								<dt>
-									<div class="Num"> </div> 
+									<div class="Num"> </div>
 									<div class="btn"><?=_t('여행 코스 알아보기')?>  <span class="btn_bull">></span></div>
 								<dt>
 
-								<dd>	
+								<dd>
 									 <?=_t('멋진 한국 여행을 준비한다면?!<br>한국의 다양한 여행지를 보고 여행코스를 짠다!')?>
 								</dd>
 							</a>
 						</li>
 
-						<li class="info2"> 
+						<li class="info2">
 							<a href="/bbs/board.php?bo_table=map&info=search&me_code=20&num=1<?=lang_url_a($_SESSION['lang'])?>">
 								<dt>
-									<div class="Num"> </div> 
+									<div class="Num"> </div>
 									<div class="btn"><?=_t('카드 판매처 알아보기')?> <span class="btn_bull">></span></div>
 								<dt>
-								<dd>	
+								<dd>
 									 <?=_t('다양한 할인혜택을 받기 위해 코리아투어카드를<br>한 장 준비해서 여행지로 떠난다!')?>
 								</dd>
 							</a>
 						</li>
 
-						<li class="info3"> 
+						<li class="info3">
 							<a href="/bbs/faq.php?&info=qa&me_code=40&num=3<?=lang_url_a($_SESSION['lang'])?>">
 								<dt >
-									<div class="Num"> </div> 
+									<div class="Num"> </div>
 									<div class="btn"><?=_t('더 궁금한 사항 보기')?> <span class="btn_bull">></span> </div>
 								<dt>
-								<dd>	
+								<dd>
 									<?=_t('여행지에서 입장권, 쇼핑 등 결제 시 코리아투어<br>카드를 보여주세요! 할인에 선물은 덤~')?>
 								</dd>
 							</a>
 						</li>
 					</ul>
 			</div>
-			
+
 			<!-- 이용안내 -->
-			<h3 class="title"><?=_t('매장안내')?></h3>	
-			
+			<h3 class="title"><?=_t('매장안내')?></h3>
+
 
 			<div class="useguide">
 				<?=get_group_benefit($view['wr_group'],$view['wr_id'], $_SESSION['lang'] );?>
 			</div>
 
 			<div class="sub3_1view2_txt">
-					
+
 					<div class="shop_img">
 						<?echo get_view_thumbnail($view['file'][3]['view'],"320px");?>
 					</div>
@@ -314,7 +313,7 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 								<?}else{?>
 									<?=$view['wr_subject_'.$_SESSION['lang']]?>
 								<?}?>
-							
+
 
 
 							</li>
@@ -329,7 +328,7 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 									<?=$view['wr_address_txt_'.$_SESSION['lang']];
 										$addres_copy = $view['wr_address_txt_'.$_SESSION['lang']];
 									?>
-								<?}?>	
+								<?}?>
 							</li>
 							<li class="s31_tel">
                                 <?=$service_txt[0]?>
@@ -341,9 +340,9 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
                                 <?=$service_txt[2]?>
                             </li>
 						</ul>
-						
-					
-						
+
+
+
 						<!--홈페이지 버튼-->
 						<?if( $view['wr_homepage_'.$_SESSION['lang']] ){?>
 							<a href="<?=$view['wr_homepage_'.$_SESSION['lang']]?>" target='_blank' class="sub3_1view2_btn3 <?=set_class('view2_btn3_us','en_US')?> <?=set_class('view2_btn3_jp','ja_JP')?>"><?=_t('홈페이지')?></a>
@@ -352,7 +351,7 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 						<?}else{?>
 							<a href="<?=$view['wr_homepage_ko_KR']?>" target='_blank'  class="sub3_1view2_btn3 <?=set_class('view2_btn3_us','en_US')?> <?=set_class('view2_btn3_jp','ja_JP')?>"><?=_t('홈페이지')?></a>
 						<?}?>
-						
+
 						<!--길찾기 버튼-->
 						<a href="https://www.google.co.kr/maps/dir//<?=$addres_copy?>?hl=<?=$hl?>" class="sub3_1view2_btn2 <?=set_class('view2_btn2_us','en_US')?> <?=set_class('view2_btn2_jp','ja_JP')?>" target='_blank'><?=_t('길찾기 안내')?></a>
 
@@ -369,7 +368,7 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
                     <div id='map' style='width:100%; height:550px;'></div>
 				</div>
 
-				
+
 
                 <?if( $metro_ids[0] ){?>
                     <div class="sub3_1view2_txt1">
@@ -388,26 +387,26 @@ if($_SERVER["REMOTE_ADDR"] == "210.96.212.116" ){
 										<?}?>
 
 
-									
-									
-									
+
+
+
 									</h4>
                                 </div>
                             <?}?>
                         </div>
                     </div>
                 <?}?>
-                
-   
+
+
 
 
 
 					<?if( $view['wr_bus_1'] || $view['wr_bus_2'] || $view['wr_bus_3'] || $view['wr_bus_4'] || $view['wr_bus_5'] || $view['wr_bus_6'] || $view['wr_bus_7'] || $view['wr_bus_8_'.$_SESSION['lang']]    || $view['wr_bus_9_'.$_SESSION['lang']]    ){?>
-    
+
 
                     <div class="sub3_1view2_txt1">
                         <h3 class="<?=set_class('sub31view2_txt1_us','en_US')?>"><?=_t('교통정보');?> - <?=_t('버스');?></h3>
-                        
+
                         <ul class="view2_txtArea2 <?=set_class('view2_txtArea2_us','en_US')?>">
 
                             <?if($view['wr_bus_1']){?>
@@ -541,9 +540,9 @@ function copy_trackback(obj) {
 
 <?php if ($board['bo_download_point'] < 0) { ?>
 $(function() {
-    
 
-    var clipboard = new Clipboard('.clipboard');//로드 시 한번 선언 
+
+    var clipboard = new Clipboard('.clipboard');//로드 시 한번 선언
     $("a.view_file_download").click(function() {
         if(!g5_is_member) {
             alert("다운로드 권한이 없습니다.\n회원이시라면 로그인 후 이용해 보십시오.");
@@ -604,9 +603,9 @@ $(function() {
 
     //resetPositon({ lat: parseFloat($('.map_info').attr('valInfoLat')), lng: parseFloat($('.map_info').attr('valInfoLng')) });
     $('.info_focus').click(function () {
-        
+
     })
-setTimeout(function(){ 
+setTimeout(function(){
     resetPositon1({ lat: parseFloat($('.map_info').attr('valInfoLat')), lng: parseFloat($('.map_info').attr('valInfoLng')) });
 }, 700);
 
@@ -665,6 +664,6 @@ function excute_good(href, $el, $tx)
 <?
 $map_lang = explode("_", $_SESSION['lang']);
 ?>
-    
+
 <script src="/skin/board/map/map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIX9g1T3yPSC5_ewJO25c7mCiRs0clTU8&language=<?=$map_lang[0]?>&region=<?=$map_lang[1]?>"></script>

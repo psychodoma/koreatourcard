@@ -165,9 +165,9 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
 <?php } ?>
 
 <!-- 페이지 -->
-<?php 
-$write_pages = get_paging(10, $page,$total_page, "./board.php?", "&bo_table=".$bo_table."&sca=".$sca."&sop=".$sop."&sfl=".$sfl."&stx=".$stx); 
-echo $write_pages;  
+<?php
+$write_pages = get_paging(10, $page,$total_page, "./board.php?", "&bo_table=".$bo_table."&sca=".$sca."&sop=".$sop."&sfl=".$sfl."&stx=".$stx);
+echo $write_pages;
 ?>
 
 <!-- 게시판 검색 시작 { -->

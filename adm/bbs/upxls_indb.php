@@ -13,16 +13,18 @@ function only_number($n)
     return preg_replace('/[^0-9]/', '', $n);
 }
 
-$g5['festival_table'] = 'g5_write_festival';
+$g5['festival_table'] = 'g5_write_festival1';
+
+$write_table = 'g5_write_festival';
 
 if($_FILES['excelfile']['tmp_name']) {
+
     $file = $_FILES['excelfile']['tmp_name'];
 
     include_once(G5_LIB_PATH.'/Excel/reader.php');
 
     $data = new Spreadsheet_Excel_Reader();
 
-    // Set output Encoding.
     $data->setOutputEncoding('UTF-8');
 
     /***
@@ -39,7 +41,6 @@ if($_FILES['excelfile']['tmp_name']) {
     **/
 
 
-
     /***
     *  Some function for formatting output.
     * $data->setDefaultFormat('%.2f');
@@ -50,21 +51,11 @@ if($_FILES['excelfile']['tmp_name']) {
     *
     **/
 
+    //echo $file;
+    //exit();
+
     $data->read($file);
 
-    /*
-     $data->sheets[0]['numRows'] - count rows
-     $data->sheets[0]['numCols'] - count columns
-     $data->sheets[0]['cells'][$i][$j] - data from $i-row $j-column
-
-     $data->sheets[0]['cellsInfo'][$i][$j] - extended info about cell
-
-        $data->sheets[0]['cellsInfo'][$i][$j]['type'] = "date" | "number" | "unknown"
-            if 'type' == "unknown" - use 'raw' value, because  cell contain value with format '0.00';
-        $data->sheets[0]['cellsInfo'][$i][$j]['raw'] = value if cell without format
-        $data->sheets[0]['cellsInfo'][$i][$j]['colspan']
-        $data->sheets[0]['cellsInfo'][$i][$j]['rowspan']
-    */
 
     error_reporting(E_ALL ^ E_NOTICE);
 
@@ -75,89 +66,96 @@ if($_FILES['excelfile']['tmp_name']) {
     $fail_count = 0;
     $succ_count = 0;
 
-    for ($i = 4; $i <= $data->sheets[0]['numRows']; $i++) {
-        $total_count++;
+	$numRows = $data->sheets[0]['numRows'];
+	$numCols = $data->sheets[0]['numCols'];
+	$datalist = $data->sheets[0]['cells'][1];
+  $titlerow = $data->sheets[0]['cells'];
 
-        $j = 1;
 
-		$festival_num				= addslashes($data->sheets[0]['cells'][$i][$j++]);
-		$festival_ca_name		= addslashes($data->sheets[0]['cells'][$i][$j++]);
-		$festival_duedate			= addslashes($data->sheets[0]['cells'][$i][$j++]);
-		$festival_subject			= addslashes($data->sheets[0]['cells'][$i][$j++]);
-		$festival_region		= addslashes($data->sheets[0]['cells'][$i][$j++]);
-		$festival_link		= addslashes($data->sheets[0]['cells'][$i][$j++]);
-		
-		//print_r($festival_subject.'<br> ');
-		
-        if($festival_region =='서울' ) $festival_region = $festival_region.'특별시';
-		if(!$mb_id) $mb_id = 'admin';
-		if(!$wr_option) $wr_option = 'html1';
-		$wr_datetime = '".G5_TIME_YMDHIS."';
-		
-		$festival_duedate_array = explode("~",$festival_duedate);
-		$festival_duedate_start = only_number($festival_duedate_array[0]);
-		$festival_duedate_end = only_number($festival_duedate_array[1]);
+  for ($i = 2; $i <= $numRows; $i++) {
+      for($k=1; $k<= $numCols; $k++) {
+          $total_count++;
+          $titlerow[$i][$k] = trim($titlerow[$i][$k]);
 
-        if(!$festival_subject) {
-            $fail_count++;
-            continue;
-        }
+    		  if(!$mb_id) $mb_id = 'admin';
+    		  if(!$wr_option) $wr_option = 'html1';
+    		  $wr_datetime = '".G5_TIME_YMDHIS."';
 
-        // mb_id 중복체크
-        $sql2 = "select count(*) as cnt from {$g5['festival_table']} where wr_subject = '$festival_subject' ";
-        $row2 = sql_fetch($sql2);
-        if($row2['cnt']) {
-            $fail_festival_num[] = $festival_num.' _ '.$festival_subject;
-            $fail_count++;
-            continue;
-        }
+          //mb_id 중복체크
+          $sql2 = "select count(*) as cnt from {$g5['festival_table']}";
+          $row2 = sql_fetch($sql2);
 
-        $sql = "INSERT INTO {$g5['festival_table']}
-                     SET  ca_name = '$festival_ca_name',
-						 wr_option = '$wr_option',
-                         wr_subject = '$festival_subject',
-                         wr_subject_ko_KR = '$festival_subject',
-						 wr_subject_en_US = '$festival_subject',
-						 wr_subject_ja_JP = '$festival_subject',
-						 wr_subject_zh_CN = '$festival_subject',
-						 wr_subject_zh_TW = '$festival_subject',
-                         wr_content = '$festival_subject',
-						 wr_content_ko_KR = '$festival_subject',
-						 wr_content_en_US = '$festival_subject',
-						 wr_content_ja_JP = '$festival_subject',
-						 wr_content_zh_CN = '$festival_subject',
-						 wr_content_zh_TW = '$festival_subject',
-                         wr_link1 = '$festival_link',
-						 wr_link1_hit = '',
-						 wr_link2_hit = '',
-						 wr_hit = '',
-						 wr_good = '',
-						 wr_nogood = '',
-						 mb_id = '$mb_id',
-                         wr_password = '".sql_password($mb_password)."',
-						 wr_name='',
-						 wr_email = '',
-						 wr_homepage = '',
-						 wr_datetime = '$wr_datetime',
-						 wr_file = '',
-						 wr_last='',
-						 wr_ip='',
-						 wr_facebook_user = '',
-						 wr_twitter_user = '',
-						 wr_1 = '$festival_duedate_start',
-						 wr_2 = '$festival_duedate_end',
-                         wr_3 = '$festival_region' ";
-		$sql .= "{$sql_ip}";
+          if($row2['cnt']) {
+      		    $fail_count++;
+              continue;
+          }
+    		  //$succ_count++;
+  	  }
+      $wr_num = get_next_num("g5_write_festival");
+      $sql = " insert into g5_write_festival
+                  set wr_num = '$wr_num',
+                       wr_reply = '$wr_reply',
+                       wr_comment = 0,
+                       ca_name = '".$titlerow[$i][1]."',
+                       wr_option = 'html1',
+                       wr_subject = '".$titlerow[$i][4]."',
+                       wr_subject_ko_KR = '".$titlerow[$i][4]."',
+                       wr_subject_en_US = '".$titlerow[$i][5]."',
+                       wr_subject_ja_JP = '".$titlerow[$i][6]."',
+                       wr_subject_zh_CN = '".$titlerow[$i][7]."',
+                       wr_subject_zh_TW = '".$titlerow[$i][8]."',
+                       wr_content = '$wr_content',
+                       wr_content_ko_KR = '$wr_content',
+                       wr_content_en_US = '$wr_content_en_US',
+                       wr_content_ja_JP = '$wr_content_ja_JP',
+                       wr_content_zh_CN = '$wr_content_zh_CN',
+                       wr_content_zh_TW = '$wr_content_zh_TW',
+                       wr_link1 = '$wr_link1',
+                       wr_link2 = '$wr_link2',
+                       wr_link1_hit = 0,
+                       wr_link2_hit = 0,
+                       wr_hit = 0,
+                       wr_good = 0,
+                       wr_nogood = 0,
+                       mb_id = '{$member['mb_id']}',
+                       wr_password = '$wr_password',
+                       wr_name = '{$member['mb_name']}_excel',
+                       wr_email = '{$member['mb_email']}',
+                       wr_homepage = '$wr_homepage',
+                       wr_datetime = '".G5_TIME_YMDHIS."',
+                       wr_last = '".G5_TIME_YMDHIS."',
+                       wr_ip = '{$_SERVER['REMOTE_ADDR']}',
+                       wr_1 = '".$titlerow[$i][2]."',
+                       wr_2 = '".$titlerow[$i][3]."',
+                       wr_3 = '".$titlerow[$i][9]."',
+                       wr_4 = '$wr_4',
+                       wr_5 = '$wr_5',
+                       wr_6 = '$wr_6',
+                       wr_7 = '$wr_7',
+                       wr_8 = '$wr_8',
+                       wr_9 = '$wr_9',
+                       wr_10 = '$wr_10',
+                       wr_link_ko_KR = '".$titlerow[$i][10]."',
+                       wr_link_en_US = '".$titlerow[$i][11]."',
+                       wr_link_ja_JP = '".$titlerow[$i][12]."',
+                       wr_link_zh_CN = '".$titlerow[$i][13]."',
+                       wr_link_zh_TW = '".$titlerow[$i][14]."'";
+      sql_query($sql);
+      // 부모 아이디에 UPDATE
+      $wr_id = sql_insert_id();
 
-       // print_r($sql);
+      sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
+      // 새글 INSERT
+      sql_query(" insert into {$g5['board_new_table']} ( bo_table, wr_id, wr_parent, bn_datetime, mb_id ) values ( '{$bo_table}', '{$wr_id}', '{$wr_id}', '".G5_TIME_YMDHIS."', '{$member['mb_id']}' ) ");
+      // 게시글 1 증가
+      sql_query("update {$g5['board_table']} set bo_count_write = bo_count_write + 1 where bo_table = '{$bo_table}'");
 
-		sql_query($sql);
-	
-        $succ_count++;
-    }
+  }
+
+
 }
 
-$g5['title'] = '축제/행사 일정 등록 결과';
+$g5['title'] = '축제/행사 데이터 등록 결과';
 include_once(G5_PATH.'/head.sub.php');
 ?>
 
@@ -165,11 +163,11 @@ include_once(G5_PATH.'/head.sub.php');
     <h1><?php echo $g5['title']; ?></h1>
 
     <div class="local_desc01 local_desc">
-        <p>일정 등록을 완료했습니다.</p>
+        <p>데이터 등록을 완료했습니다.</p>
     </div>
 
     <dl id="excelfile_result">
-        <dt>총등록 일정수</dt>
+        <dt>총등록 데이터수</dt>
         <dd><?php echo number_format($total_count); ?></dd>
         <dt>등록건수</dt>
         <dd><?php echo number_format($succ_count); ?></dd>
@@ -177,11 +175,11 @@ include_once(G5_PATH.'/head.sub.php');
         <dd><?php echo number_format($fail_count); ?></dd>
 
 		  <?php if($fail_count > 0) { ?>
-        <dt>실패 일정항목</dt>
+        <dt>실패 데이터항목</dt>
         <dd><?php echo implode('<br> ', $fail_festival_num); ?></dd>
         <?php } ?>
 
-       
+
     </dl>
 
     <div class="btn_win01 btn_win">
