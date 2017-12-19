@@ -17,7 +17,7 @@
 		<option value='경상북도' <?if($word == '경상북도'){ echo "selected"; $wordcom = "경상북도";}?> ><?=_t('경상북도')?></option>
 		<option value='전라남도' <?if($word == '전라남도'){ echo "selected"; $wordcom = "전라남도";}?> ><?=_t('전라남도')?></option>
 		<option value='전라북도' <?if($word == '전라북도'){ echo "selected"; $wordcom = "전라북도";}?> ><?=_t('전라북도')?></option>
-		<!--<option value='제주' <?if($word == '제주'){ echo "selected"; $wordcom = "제주특별자치도";}?> ><?=_t('제주특별자치도')?></option>-->
+		<option value='제주' <?if($word == '제주'){ echo "selected"; $wordcom = "제주특별자치도";}?> ><?=_t('제주특별자치도')?></option>
 		<option value='충청남도' <?if($word == '충청남도'){ echo "selected"; $wordcom = "충청남도";}?> ><?=_t('충청남도')?></option>
 		<option value='충청북도' <?if($word == '충청북도'){ echo "selected"; $wordcom = "충청북도";}?> ><?=_t('충청북도')?></option>
     </select>
