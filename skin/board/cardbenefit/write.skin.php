@@ -231,7 +231,7 @@ echo $action_url;
                     $select = $write['wr_group'];
                     echo get_select_ktc($obj,$table,$name,$select);   //1.쿼리값  2.테이블이름   3.select name의 이름   4.선택된 값
                 }
-                ?>   
+                ?>
 
 
 
@@ -245,19 +245,30 @@ echo $action_url;
             </td>
         </tr>
 
-
+        <tr>
+            <th scope="row"><label for="ca_name">순서</label></th>
+            <td>
+              <?
+              if(!$write['wr_order']){
+                $write['wr_order'] = 100;
+              }
+              ?>
+              <input type="number" name="wr_order" value="<?=$write['wr_order']?>">
+              <span>기본 100, 값이 작으면 작을수록 먼저 나옴</span>
+            </td>
+        </tr>
 
         <tr>
             <th scope="row"><label for="ca_name">이미지 확장</label></th>
             <td>
-                
-                <?echo $wr_img_append_html_en_US;?> 
-                <?echo $wr_img_append_html_ja_JP;?> 
-                <?echo $wr_img_append_html_zh_CN;?> 
-                <?echo $wr_img_append_html_zh_TW;?> 
+
+                <?echo $wr_img_append_html_en_US;?>
+                <?echo $wr_img_append_html_ja_JP;?>
+                <?echo $wr_img_append_html_zh_CN;?>
+                <?echo $wr_img_append_html_zh_TW;?>
             </td>
         </tr>
-        
+
         <tr>
             <th scope="row"><label for="wr_content">내용<strong class="sound_only">필수</strong></label></th>
             <td class="wr_content">
@@ -322,10 +333,10 @@ echo $action_url;
             </td>
         </tr>
 
-        
+
 
         <?php for ($i=0; $is_file && $i<$file_count; $i++) { ?>
-       
+
             <?if($i == 4){?>
                 <tr>
                     <th></th>
@@ -360,7 +371,7 @@ echo $action_url;
                     </div>
 
                     <?if($i > 3){?>
-                        
+
                         <?if($w != "u"){?>
                             <?$obj = sql_query("select * from g5_default_img");?>
                             <?=set_select_ktc($obj,"cardbenefit","bf_ck[]");?>
@@ -372,9 +383,9 @@ echo $action_url;
                     <br><br>
                     <?}?>
                     <?php if ($is_file_content) { ?>
-                    
+
                     <textarea style='width:700px; height:50px;' class="fileInupt" type="text" name="bf_content[]" value="<?php echo ($w == 'u') ? $file[$i]['bf_content'] : '';?> <?if($i < 3) echo "first";?> " title="파일 설명을 입력해주세요." class="frm_file frm_input" id="bf_file_del_txt<?php echo $i ?>" size="31" placeholder="한글"><?php echo ($w == 'u') ? $file[$i]['bf_content'] : '';?> <?if($i < 3) echo "first";?></textarea></br></br>
-                    
+
                     <?if($i > 3){?>
                         <textarea style='width:700px; height:50px;' class="fileInupt" type="text" name="bf_content_en_US[]" value="<?php echo ($w == 'u') ? $file[$i]['bf_content_en_US'] : ''; ?>" title="파일 설명을 입력해주세요." class="frm_file frm_input" id="bf_file_del_txt<?php echo $i ?>" size="31" placeholder="영어"><?php echo ($w == 'u') ? $file[$i]['bf_content_en_US'] : ''; ?></textarea></br></br>
                         <textarea style='width:700px; height:50px;' class="fileInupt" type="text" name="bf_content_ja_JP[]" value="<?php echo ($w == 'u') ? $file[$i]['bf_content_ja_JP'] : ''; ?>" title="파일 설명을 입력해주세요." class="frm_file frm_input" id="bf_file_del_txt<?php echo $i ?>" size="31" placeholder="일본어"><?php echo ($w == 'u') ? $file[$i]['bf_content_ja_JP'] : ''; ?></textarea></br></br>
@@ -394,7 +405,7 @@ echo $action_url;
                     <?php } ?>
                 </td>
             </tr>
-            
+
         <?php } ?>
 
 
@@ -441,14 +452,14 @@ echo $action_url;
         <tr>
             <th scope="row"><label for="wr_link<?php echo $i ?>">안내</label></th>
             <td>
-				<?echo $wr_guide_html_ko_KR;?> 
-				<?echo $wr_guide_html_en_US;?> 
-				<?echo $wr_guide_html_ja_JP;?> 
-				<?echo $wr_guide_html_zh_CN;?> 
-				<?echo $wr_guide_html_zh_TW;?> 
+				<?echo $wr_guide_html_ko_KR;?>
+				<?echo $wr_guide_html_en_US;?>
+				<?echo $wr_guide_html_ja_JP;?>
+				<?echo $wr_guide_html_zh_CN;?>
+				<?echo $wr_guide_html_zh_TW;?>
 
 
-<!-- 
+<!--
                 <textarea name='wr_guide' style='height:100px;'><?=$write['wr_guide']?></textarea><br><br>
                 <textarea name='wr_guide_en_US' style='height:100px;'><?=$write['wr_guide_en_US']?></textarea><br><br>
                 <textarea name='wr_guide_ja_JP' style='height:100px;'><?=$write['wr_guide_ja_JP']?></textarea><br><br>
@@ -538,14 +549,14 @@ echo $action_url;
                 <!--<input type="text" name='wr_address_ja_JP' placeholder="일본주소" style='margin-bottom:10px;' size='75' >
                 <input type="text" name='wr_address_zh_CN' placeholder="간체주소" size='75'><br>
                 <input type="text" name='wr_address_en_US' placeholder="번체주소" size='75'><br><br><br>-->
-                
-                좌표 : 
+
+                좌표 :
                 <input type="text" id='wr_lat' name='wr_lat' placeholder="lat" value='<?=$write['wr_lat']?>' size='30'>
                 <input type="text" id='wr_lng' name='wr_lng' placeholder="lng" value='<?=$write['wr_lng']?>' size='30'>
 
                 <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
                 <img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
-                </div>  
+                </div>
                 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
             </td>
@@ -643,7 +654,7 @@ echo $action_url;
             <th scope="row"><label for="wr_link<?php echo $i ?>">지하철</label></th>
             <td class='metro'>
                 <?if($w != 'u'){?>
-                        <div class='metro_input metro_input_re'>   
+                        <div class='metro_input metro_input_re'>
                             <select name='wr_metro[]'>
 								<option value='' >선택하세요</option>
 								<optgroup label='서울'>
@@ -676,7 +687,7 @@ echo $action_url;
 									<option value='24'>대구2호선</option>
 									<option value='25'>대구3호선</option>
 								</optgroup>
-									
+
 								<optgroup label='대전'>
 									<option value='26'>대전1호선</option>
 								</optgroup>
@@ -701,15 +712,15 @@ echo $action_url;
                             <input type='text' name='metro_info_zh_CN[]' placeholder='간체' size='28'>
                             <input type='text' name='metro_info_zh_TW[]' placeholder='번체' size='28'>
 
-                            <input type='hidden' name='metro_id[]' value='no'> 
-                            <input type='hidden' name='metro_id_ck[]' id='metro_id_ck' value='no'> 
-                            
+                            <input type='hidden' name='metro_id[]' value='no'>
+                            <input type='hidden' name='metro_id_ck[]' id='metro_id_ck' value='no'>
+
                             <div style='float:right; background:black; color:white; width:50px; height:100%; text-align:center; cursor:pointer;' class='metro_input_add'>추가</div>
                         </div>
                 <?}?>
 
                 <?if( $metro_reulst_count['cnt'] == 0 && $w == 'u' ){?>
-                        <div class='metro_input metro_input_re'>   
+                        <div class='metro_input metro_input_re'>
                             <select name='wr_metro[]'>
 								<option value='' >선택하세요</option>
 								<optgroup label='서울'>
@@ -742,7 +753,7 @@ echo $action_url;
 									<option value='24'>대구2호선</option>
 									<option value='25'>대구3호선</option>
 								</optgroup>
-									
+
 								<optgroup label='대전'>
 									<option value='26'>대전1호선</option>
 								</optgroup>
@@ -768,16 +779,16 @@ echo $action_url;
                             <input type='text' name='metro_info_zh_CN[]' placeholder='간체' size='28'>
                             <input type='text' name='metro_info_zh_TW[]' placeholder='번체' size='28'>
 
-                            <input type='hidden' name='metro_id[]' value='no'> 
-                            <input type='hidden' name='metro_id_ck[]' id='metro_id_ck' value='insert'> 
-                            
+                            <input type='hidden' name='metro_id[]' value='no'>
+                            <input type='hidden' name='metro_id_ck[]' id='metro_id_ck' value='insert'>
+
                             <div style='float:right; background:black; color:white; width:50px; height:100%; text-align:center; cursor:pointer;' class='metro_input_add'>추가</div>
                         </div>
                 <?}?>
 
 
                 <? $metro_reulst_cnt = 0; while ($row = sql_fetch_array($metro_reulst)){ ?>
-                        <div class='metro_input <?if($metro_reulst_cnt == 0) echo "metro_input_re";?>'>   
+                        <div class='metro_input <?if($metro_reulst_cnt == 0) echo "metro_input_re";?>'>
                             <select name='wr_metro[]' id='wr_metro'>
 								<option value=''>선택하세요</option>
 								<optgroup label='서울'>
@@ -810,7 +821,7 @@ echo $action_url;
 									<option value='24' <?if( $row['metro_hosun'] == 24 ) echo "selected"; ?> >대구2호선</option>
 									<option value='25' <?if( $row['metro_hosun'] == 25 ) echo "selected"; ?> >대구3호선</option>
 								</optgroup>
-									
+
 								<optgroup label='대전'>
 									<option value='26' <?if( $row['metro_hosun'] == 26 ) echo "selected"; ?> >대전1호선</option>
 								</optgroup>
@@ -837,8 +848,8 @@ echo $action_url;
                             <input type='text' name='metro_info_zh_CN[]' id='metro_info_zh_CN' value='<?=$row['metro_info_zh_CN']?>' placeholder='간체' size='28'>
                             <input type='text' name='metro_info_zh_TW[]' id='metro_info_zh_TW' value='<?=$row['metro_info_zh_TW']?>' placeholder='번체' size='28'>
 
-                            <input type='hidden' name='metro_id[]' id='metro_id' value='<?=$row['metro_id']?>'>                       
-                            <input type='hidden' name='metro_id_ck[]' id='metro_id_ck' value='no'> 
+                            <input type='hidden' name='metro_id[]' id='metro_id' value='<?=$row['metro_id']?>'>
+                            <input type='hidden' name='metro_id_ck[]' id='metro_id_ck' value='no'>
 
                             <div class='add_btn <?if($metro_reulst_cnt == 0){ echo "metro_input_add";}else{ echo "metro_input_remove";}?>'><?if($metro_reulst_cnt == 0){ echo "추가";}else{ echo "삭제";}?></div>
                         </div>
@@ -922,9 +933,9 @@ echo $action_url;
                     return;
                 }else if(data.trim() == "fail"){
                     alert('같은 이름의 그룹이 없습니다.');
-                    return;  
+                    return;
                 }
-                alert('그룹이 추가되었습니다.');           
+                alert('그룹이 추가되었습니다.');
             }
         })
     })
@@ -941,15 +952,15 @@ echo $action_url;
             option_cnt = index;
         })
         return option_cnt+1;
-    }   
+    }
 
 
 
 
     $('.bf_file_del_txt').click(function(){
-        var result = confirm('삭제 시 복구가 불가능 합니다. 그래도 하시겠습니까?'); 
+        var result = confirm('삭제 시 복구가 불가능 합니다. 그래도 하시겠습니까?');
             var num = $(this).attr('valnum');
-        if(result) { 
+        if(result) {
             $('#'+$(this).attr('valVal')).attr('value',"");
          }else{
             $("#bf_file_del"+num).attr("checked", false);
@@ -969,7 +980,7 @@ echo $action_url;
             $('.benefit1_show_span'+cnt).css('display','');
             cnt++;
             $(this).attr('valCnt', cnt);
-           
+
         }
     })
 
@@ -991,7 +1002,7 @@ echo $action_url;
        $me_cl_add.removeClass('metro_input_add');
        $me_cl_add.addClass('metro_input_remove');
        $me_cl_add.text('삭제');
-       
+
 
        $me_cl_add.click(function(){
            //$metro_id = $(this).parent().children('#metro_id');
@@ -1033,10 +1044,10 @@ echo $action_url;
            $(this).parent().prev().append($metro_id3);
            $(this).parent().prev().append($metro_id4);
            $(this).parent().prev().append($metro_id5);
-           
+
            $(this).parent().prev().append("<input type='hidden' name='metro_id_ck[]' value='del'>");
            $(this).parent().remove();
-        
+
     })
 
 
@@ -1197,13 +1208,13 @@ echo $action_url;
                         alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                     }
 
-    
+
                 })
 
 
 
 
-                
+
 
                 // iframe을 넣은 element를 안보이게 한다.
                 // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)

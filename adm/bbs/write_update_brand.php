@@ -347,13 +347,14 @@ if ($w == '' || $w == 'r') {
 					 wr_bus_9_ja_JP = '$wr_bus_9_ja_JP',
 					 wr_bus_9_zh_CN = '$wr_bus_9_zh_CN',
 					 wr_bus_9_zh_TW = '$wr_bus_9_zh_TW',
+           wr_order = '$wr_order',
                      wr_img_append_en_US = '$wr_img_append_en_US',
                      wr_img_append_ja_JP = '$wr_img_append_ja_JP',
                      wr_img_append_zh_CN = '$wr_img_append_zh_CN',
                      wr_img_append_zh_TW = '$wr_img_append_zh_TW'";
 
     if($wr_url){    //allshop 이동 주소 때문에 추가
-       $sql .= " , wr_url = '".$wr_url."'"; 
+       $sql .= " , wr_url = '".$wr_url."'";
     }
 
     sql_query($sql);
@@ -362,7 +363,7 @@ if ($w == '' || $w == 'r') {
 
     if( $wr_metro[0] ){
         for ($i=0; $i<count($wr_metro); $i++){
-            $sql_metro = " insert into g5_write_cardbenefit_metro set 
+            $sql_metro = " insert into g5_write_cardbenefit_metro set
                                 bo_table = 'cardbenefit',
                                 bo_table_id = '$wr_id',
                                 metro_hosun = '$wr_metro[$i]',
@@ -371,9 +372,9 @@ if ($w == '' || $w == 'r') {
                                 metro_info_ja_JP = '$metro_info_ja_JP[$i]',
                                 metro_info_zh_CN = '$metro_info_zh_CN[$i]',
                                 metro_info_zh_TW = '$metro_info_zh_TW[$i]'";
-            sql_query($sql_metro);                
+            sql_query($sql_metro);
         }
-    
+
         $metro_re = sql_query("select * from g5_write_cardbenefit_metro where bo_table_id = ".$wr_id);
 
         $metro_c = 0;
@@ -387,10 +388,10 @@ if ($w == '' || $w == 'r') {
             }
             $metro_c++;
         }
-        
+
         $metro_re_save = sql_fetch("update g5_write_cardbenefit set wr_metro = '".$metro_c_str."' where wr_id = ".$wr_id);
     }
-              
+
 
 
 
@@ -580,13 +581,14 @@ if ($w == '' || $w == 'r') {
 					 wr_bus_9_ja_JP = '{$wr_bus_9_ja_JP}',
 					 wr_bus_9_zh_CN = '{$wr_bus_9_zh_CN}',
 					 wr_bus_9_zh_TW = '{$wr_bus_9_zh_TW}',
+           wr_order = '{$wr_order}',
                      wr_img_append_en_US = '$wr_img_append_en_US',
                      wr_img_append_ja_JP = '$wr_img_append_ja_JP',
                      wr_img_append_zh_CN = '$wr_img_append_zh_CN',
                      wr_img_append_zh_TW = '$wr_img_append_zh_TW'";
 
                     if($wr_url){    //allshop 이동 주소 때문에 추가
-                        $sql .= " , wr_url = '".$wr_url."' "; 
+                        $sql .= " , wr_url = '".$wr_url."' ";
                     }
 
             $sql .= "{$sql_ip}
@@ -612,7 +614,7 @@ if ($w == '' || $w == 'r') {
 
         for ($i=0; $i<count($metro_id); $i++){
             if( $metro_id_ck[$i] == "no" ){
-                $sql_metro = " update g5_write_cardbenefit_metro set 
+                $sql_metro = " update g5_write_cardbenefit_metro set
                                     bo_table = 'cardbenefit',
                                     bo_table_id = '$wr_id',
                                     metro_hosun = '$wr_metro[$i]',
@@ -625,7 +627,7 @@ if ($w == '' || $w == 'r') {
             }else if($metro_id_ck[$i] == "del"){
                 $sql_metro = " delete from g5_write_cardbenefit_metro where metro_id = '$metro_id[$i]'";
             }else if($metro_id_ck[$i] == "insert"){
-                $sql_metro = " insert into g5_write_cardbenefit_metro set 
+                $sql_metro = " insert into g5_write_cardbenefit_metro set
                                     bo_table = 'cardbenefit',
                                     bo_table_id = '$wr_id',
                                     metro_hosun = '$wr_metro[$i]',
@@ -653,12 +655,12 @@ if ($w == '' || $w == 'r') {
             $metro_c++;
         }
 
-        
+
         $metro_re_save = sql_fetch("update g5_write_cardbenefit set wr_metro = '".$metro_c_str."' where wr_id = ".$wr_id);
     }
 
 
-    
+
     /*
     if ($notice) {
         //if (!preg_match("/[^0-9]{0,1}{$wr_id}[\r]{0,1}/",$board['bo_notice']))
@@ -849,7 +851,7 @@ $j = $i-4;
     $row = sql_fetch(" select count(*) as cnt from {$g5['board_file_table']} where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' and bf_no = '{$i}' ");
     if ($row['cnt'])
     {
-    
+
         // 삭제에 체크가 있거나 파일이 있다면 업데이트를 합니다.
         // 그렇지 않다면 내용만 업데이트 합니다.
         if ($upload[$i]['del_check'] || $upload[$i]['file'])
@@ -921,7 +923,7 @@ $j = $i-4;
    // echo $sql;
    // echo "<br>\n";
 }
- 
+
 // 업로드된 파일 내용에서 가장 큰 번호를 얻어 거꾸로 확인해 가면서
 // 파일 정보가 없다면 테이블의 내용을 삭제합니다.
 $row = sql_fetch(" select max(bf_no) as max_bf_no from {$g5['board_file_table']} where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' ");
@@ -937,7 +939,7 @@ for ($i=(int)$row['max_bf_no']; $i>=0; $i--)
     else{ sql_query(" delete from {$g5['board_file_table']} where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' and bf_no = '{$i}' "); }
     // 그렇지 않다면 정보를 삭제합니다.
     //echo " delete from {$g5['board_file_table']} where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' and bf_no = '{$i}' ";
-    
+
 }
 //exit();
     $row3 = sql_query(" select bf_file, bf_content, bf_no, bf_content_en_US, bf_content_ja_JP, bf_content_zh_CN, bf_content_zh_TW, bf_ck from {$g5['board_file_table']} where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' order by bf_no");
@@ -947,14 +949,14 @@ for ($i=(int)$row['max_bf_no']; $i>=0; $i--)
     while($re = sql_fetch_array($row3)){
             $sql = " update {$g5['board_file_table']}
                         set bf_no = '{$re_cnts}' where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' and bf_no = '{$re['bf_no']}' ";
-            
+
             sql_query($sql);
             $re_cnts++;
 
 
     }
     $row4 = sql_query(" select bf_file, bf_content, bf_no, bf_content_en_US, bf_content_ja_JP, bf_content_zh_CN, bf_content_zh_TW, bf_ck from {$g5['board_file_table']} where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' order by bf_no");
-    
+
 
     echo " select bf_file, bf_content, bf_no, bf_content_en_US, bf_content_ja_JP, bf_content_zh_CN, bf_content_zh_TW, bf_ck from {$g5['board_file_table']} where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' order by bf_no";
     echo "<br>";
@@ -962,7 +964,7 @@ for ($i=(int)$row['max_bf_no']; $i>=0; $i--)
     while($re = sql_fetch_array($row4)){
             $sql = " update {$g5['board_file_table']}
                         set bf_no = '{$re_cnts1}' where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' and bf_no = '{$re['bf_no']}' ";
- 
+
 
             sql_query($sql);
             $re_cnts1++;
@@ -1051,5 +1053,4 @@ delete_cache_latest($bo_table);
 if ($file_upload_msg)
     alert($file_upload_msg, G5_ADMIN_HTTP_BBS_URL.'/board.php?bo_table='.$bo_table.'&amp;page='.$page.$qstr);
 else
-    goto_url(G5_ADMIN_HTTP_BBS_URL.'/board.php?bo_table='.$bo_table.'&amp;'.$qstr); 
-
+    goto_url(G5_ADMIN_HTTP_BBS_URL.'/board.php?bo_table='.$bo_table.'&amp;'.$qstr);
